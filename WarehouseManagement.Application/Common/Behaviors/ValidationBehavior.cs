@@ -1,4 +1,4 @@
-namespace WareHouseManagement.Application.Features.Common.Behavior;
+namespace WarehouseManagement.Application.Common.Behaviors;
 
 public class ValidationBehavior
 {

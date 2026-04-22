@@ -52,3 +52,6 @@ msbuild.wrn
 appsettings.json
 # env
 .evn
+
+# JetBrains IDEs
+.idea/

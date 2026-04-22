@@ -1,4 +1,4 @@
-namespace WarehouseManagement.Infrastructure;
+namespace WarehouseManagement.Infrastructure.Persistence.Configurations;
 
 public class ProductConfiguration
 {

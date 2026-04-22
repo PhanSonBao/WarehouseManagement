@@ -1,4 +1,5 @@
 using WarehouseManagement.Application;
+using WarehouseManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddApplication()
-    .AddInfrastrucutre(builder.Configuration)
+    .AddInfrastructure(builder.Configuration)
     .AddControllers();
 
 var app = builder.Build();

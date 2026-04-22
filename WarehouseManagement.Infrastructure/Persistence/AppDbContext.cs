@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WarehouseManagement.Domain.Entities;
 
 namespace WarehouseManagement.Infrastructure.Persistence;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-    
     // Db set
-    // public DbSet<Product> Products => Set<Product>();
+    public DbSet<Product> Products => Set<Product>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
