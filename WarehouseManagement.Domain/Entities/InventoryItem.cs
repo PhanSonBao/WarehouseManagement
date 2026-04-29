@@ -10,7 +10,7 @@ public class InventoryItem
     public int LowStockThreshold { get; private set; } // Ngưỡng cảnh báo tồn kho thấp
     public byte[] RowVersion { get; private set; } // Concurrency token
     
-    // Constructor
+    // Private Constructor for EF
     private InventoryItem() { }
     
     // Factory Method
@@ -19,43 +19,51 @@ public class InventoryItem
     /// </summary>
     public static InventoryItem Create(Guid productVariantId, Guid warehouseId, int lowStockThreshold)
     {
-        int quantity = 0;
-
+        // Validate 
+        if (lowStockThreshold < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(lowStockThreshold), 
+                "Low stock threshold must be > 0");
+        }
+        
         return new InventoryItem
         {
-
+            ProductVariantId =  productVariantId,
+            WarehouseId =   warehouseId,
+            LowStockThreshold =  lowStockThreshold,
+            Quantity = 0
         };
     }
 
     /// <summary>
     /// Nhập kho
     /// </summary>
-    public static InventoryItem AddStock(int quantity)
+    public void AddStock(int quantity)
     {
         // Validate
-        if (quantity < 0)
+        if (quantity <= 0)
         {
-            throw new CannotUnloadAppDomainException();
+            throw new Exception("Quantity must be > 0");
         }
 
-        InventoryItem.AddStock(quantity);
-        return new InventoryItem
-        {
-            Quantity =  quantity
-        };
+        Quantity += quantity;
     }
     
     /// <summary>
     /// Xuất kho
     /// </summary>
-    public static InventoryItem Deduct(int quantity)
+    public void Deduct(int quantity)
     {
-
-        return new InventoryItem
+        // Validate
+        if (quantity <= 0 || Quantity - quantity < 0)
         {
-
-        };
+            throw new Exception("Quantity must be > 0");
+        }
+        
+        Quantity -= quantity;
     }
-    
-    
+
+
+    // Computed Property
+    public bool IsLowStock => Quantity <= LowStockThreshold;
 }

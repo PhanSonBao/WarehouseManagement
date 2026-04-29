@@ -2,6 +2,7 @@ namespace WarehouseManagement.Domain.Entities;
 
 public class Product
 {
+    // Data Annotaion
     public Guid Id { get; private set; }
     public string SKU { get; private set; }
     public string Name { get; private set; }
