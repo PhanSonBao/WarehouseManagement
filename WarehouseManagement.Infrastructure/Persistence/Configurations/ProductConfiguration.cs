@@ -13,23 +13,31 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         // Table Name
         builder.ToTable("Products");
-        // Đặt primary key là Id
+        
+        // Primary key is Id
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id);
-        builder.Property(p => p.Name);
-        // SKU: required, max 50 ký tự
-        // Tạo unique index cho SKU (không được trùng)
+        builder.Property(p => p.Id)
+            .ValueGeneratedNever(); // Already Generate Guid in domain
+        
+        // SKU
+        builder.Property(p => p.SKU)
+            .IsRequired()
+            .HasMaxLength(50);
+        builder.HasIndex(p => p.SKU)
+            .IsUnique(); // Unique Index
 
+        // Name
+        builder.Property(p => p.Name)
+            .IsRequired()
+            .HasMaxLength(50);
 
-        // Name: required, max 200 ký tự
-
-
-        // Barcode: không required, max 100 ký tự
-        // Tạo index cho Barcode (để lookup nhanh khi scan)
-
-
-        // CostPrice và SalePrice: kiểu int
-
+        // Barcode
+        builder.Property(p => p.BarCode)
+            .HasMaxLength(100);
+        builder.HasIndex(p => p.BarCode); // Để lookup nhanh khi scan
+        
+        // CostPrice và SalePrice: kiểu long
+        builder.Property(p => p.CostPrice);
 
         // Khai báo quan hệ với Category (HasOne/WithMany)
         // Khai báo quan hệ với Brand nếu có
