@@ -20,10 +20,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .ValueGeneratedNever(); // Already Generate Guid in domain
         
         // SKU
-        builder.Property(p => p.SKU)
+        builder.Property(p => p.Sku)
             .IsRequired()
             .HasMaxLength(50);
-        builder.HasIndex(p => p.SKU)
+        builder.HasIndex(p => p.Sku)
             .IsUnique(); // Unique Index
 
         // Name
@@ -36,10 +36,17 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasMaxLength(100);
         builder.HasIndex(p => p.BarCode); // Để lookup nhanh khi scan
         
-        // CostPrice và SalePrice: kiểu long
+        // CostPrice và SalePrice: kiểu decimal
         builder.Property(p => p.CostPrice);
 
-        // Khai báo quan hệ với Category (HasOne/WithMany)
-        // Khai báo quan hệ với Brand nếu có
+        // 1 Category - Many Products
+        builder.HasOne(p => p.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CategoryId);
+        
+        // 1 Brand - Many Products
+        builder.HasOne(p => p.Brand)
+            .WithMany(b => b.Products)
+            .HasForeignKey(b => b.BrandId);
     }
 }

@@ -1,35 +1,39 @@
+using WarehouseManagement.Domain.Exceptions;
+
 namespace WarehouseManagement.Domain.Entities;
 
 public class Product
 {
     // Data Annotaion
     public Guid Id { get; private set; }
-    public string SKU { get; private set; }
+    public string Sku { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public int CostPrice { get; private set; } // Giá nhập
-    public int SalePrice { get; private set; } // Giá bán
+    public decimal CostPrice { get; private set; } // Giá nhập
+    public decimal SalePrice { get; private set; } // Giá bán
     public string? BarCode { get; private set; }
-    public string CategoryId { get; private set; }
+    public Guid CategoryId { get; private set; }
+    public Category Category { get; private set; }
     public Guid? BrandId { get; private set; }
+    public Brand Brand { get; private set; }
     public bool IsActive { get; private set; }
 
     // Private Constructor
     private Product() { }
 
     // Factory Method
-    public static Product Create(Guid id, string sku, string name, int costPrice, int salePrice, string categoryId, bool isActive)
+    public static Product Create(string sku, string name, int costPrice, int salePrice, Guid categoryId, bool isActive)
     {
         // Validate Input
         if (name == null || salePrice <= 0)
         {
-            throw new CannotUnloadAppDomainException();
+            throw new DomainException("Name cannot be null and Sale Price must be > 0");
         }
 
         return new Product
         {
             Id = Guid.NewGuid(),
-            SKU = sku,
+            Sku = sku,
             Name = name,
             CostPrice = costPrice,
             SalePrice = salePrice,
@@ -38,18 +42,18 @@ public class Product
         };
     }
 
-    public static Product Update(Guid id, string sku, string name, int costPrice, int salePrice, string categoryId, bool isActive)
+    public static Product Update(Guid id, string sku, string name, int costPrice, int salePrice, Guid categoryId, bool isActive)
     {
         // Validate Input
         if (name == null || salePrice <= 0)
         {
-            throw new CannotUnloadAppDomainException();
+            throw new DomainException("Name cannot be null and Sale Price must be > 0");
         }
 
         return new Product
         {
-            Id = Guid.NewGuid(),
-            SKU = sku,
+            Id = id,
+            Sku = sku,
             Name = name,
             CostPrice = costPrice,
             SalePrice = salePrice,
@@ -59,14 +63,8 @@ public class Product
     }
     
     // Soft Delete Product
-    public static Product Deactivate(Guid id)
+    public void Deactive()
     {
-        // Search product id
-        if (id != Guid.Empty) {}
-
-        return new Product
-        {
-            IsActive = false
-        };
+        IsActive = false;
     }
 }

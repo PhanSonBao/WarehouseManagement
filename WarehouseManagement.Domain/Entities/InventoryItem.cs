@@ -1,3 +1,5 @@
+using WarehouseManagement.Domain.Exceptions;
+
 namespace WarehouseManagement.Domain.Entities;
 
 public class InventoryItem
@@ -43,7 +45,7 @@ public class InventoryItem
         // Validate
         if (quantity <= 0)
         {
-            throw new Exception("Quantity must be > 0");
+            throw new DomainException("Quantity must be > 0");
         }
 
         Quantity += quantity;
@@ -57,7 +59,7 @@ public class InventoryItem
         // Validate
         if (quantity <= 0 || Quantity - quantity < 0)
         {
-            throw new Exception("Quantity must be > 0");
+            throw new DomainException("Quantity must be > 0");
         }
         
         Quantity -= quantity;
