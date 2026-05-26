@@ -1,10 +1,11 @@
 namespace WarehouseManagement.Domain.Entities;
 
-public class StockMovements
+// Size, color
+public class ProductVariant
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
     
     // Constructor
-    private StockMovements() { }
+    private ProductVariant() { }
 }

@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using WarehouseManagement.Application;
 using WarehouseManagement.Infrastructure;
+using WarehouseManagement.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,14 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
     .AddControllers();
+
+// Connection String
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 

@@ -37,7 +37,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasIndex(p => p.BarCode); // Để lookup nhanh khi scan
         
         // CostPrice và SalePrice: kiểu decimal
-        builder.Property(p => p.CostPrice);
+        builder.Property(p => p.CostPrice)
+            .HasPrecision(18, 0);
+        builder.Property(p => p.SalePrice)
+            .HasPrecision(18, 0);
 
         // 1 Category - Many Products
         builder.HasOne(p => p.Category)
