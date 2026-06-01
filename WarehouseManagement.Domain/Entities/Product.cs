@@ -22,7 +22,7 @@ public class Product
     private Product() { }
 
     // Factory Method
-    public static Product Create(string sku, string name, int costPrice, int salePrice, Guid categoryId, bool isActive)
+    public static Product Create(string sku, string name, decimal costPrice, decimal salePrice, Guid categoryId, bool isActive)
     {
         // Validate Input
         if (name == null || salePrice <= 0)
@@ -42,7 +42,7 @@ public class Product
         };
     }
 
-    public static Product Update(Guid id, string sku, string name, int costPrice, int salePrice, Guid categoryId, bool isActive)
+    public static Product Update(Guid id, string sku, string name, decimal costPrice, decimal salePrice, Guid categoryId, bool isActive)
     {
         // Validate Input
         if (name == null || salePrice <= 0)
