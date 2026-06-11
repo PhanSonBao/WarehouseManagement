@@ -5,10 +5,10 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.Products.Commands.CreateProduct;
 
 // Logic create product and saving to DB are implemented here
-public class CreateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateProductCommand, Guid>
+public class CreateHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+    : IRequestHandler<CreateCommand, Guid>
 {
-    public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCommand command, CancellationToken cancellationToken)
     {
         // Gọi Product.Create(...) với các giá trị từ command
         // (Factory method bạn đã viết trong Domain)

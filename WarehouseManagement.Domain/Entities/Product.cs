@@ -11,12 +11,13 @@ public class Product
     public string Description { get; private set; }
     public decimal CostPrice { get; private set; } // Giá nhập
     public decimal SalePrice { get; private set; } // Giá bán
-    public string? BarCode { get; private set; }
+    public string? Barcode { get; private set; }
     public Guid CategoryId { get; private set; }
     public Category Category { get; private set; }
     public Guid? BrandId { get; private set; }
     public Brand Brand { get; private set; }
     public bool IsActive { get; private set; }
+    public string? Variants { get; private set; }
 
     // Private Constructor
     private Product() { }

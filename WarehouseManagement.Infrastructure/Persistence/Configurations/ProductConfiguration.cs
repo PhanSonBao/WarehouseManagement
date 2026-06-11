@@ -32,9 +32,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasMaxLength(50);
 
         // Barcode
-        builder.Property(p => p.BarCode)
+        builder.Property(p => p.Barcode)
             .HasMaxLength(100);
-        builder.HasIndex(p => p.BarCode); // Để lookup nhanh khi scan
+        builder.HasIndex(p => p.Barcode); // Để lookup nhanh khi scan
         
         // CostPrice và SalePrice: kiểu decimal
         builder.Property(p => p.CostPrice)

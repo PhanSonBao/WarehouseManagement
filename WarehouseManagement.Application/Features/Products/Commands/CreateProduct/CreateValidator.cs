@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace WarehouseManagement.Application.Features.Products.Commands.CreateProduct;
 
-public class CreateProductValidator : AbstractValidator<CreateProductCommand>
+public class CreateValidator : AbstractValidator<CreateCommand>
 {
-    public CreateProductValidator()
+    public CreateValidator()
     {
         // SKU: không được rỗng, tối đa 50 ký tự
         RuleFor(x => x.Sku).NotEmpty().MaximumLength(50);
