@@ -7,10 +7,10 @@ namespace WarehouseManagement.Application.Features.Products.Queries.GetById;
 public record GetByIdQuery : IRequest<ProductDto>
 {
     // Guid Id  — id của product cần lấy
-    public Guid Id;
+    public int Id;
     
     // Constructor
-    public GetByIdQuery(Guid id)
+    public GetByIdQuery(int id)
     {
         Id = id;
     }

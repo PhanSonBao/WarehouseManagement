@@ -1,23 +1,23 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WarehouseManagement.Application.Features.Products.Commands.CreateProduct;
+using WarehouseManagement.Application.Features.Product.Commands.Create;
 using WarehouseManagement.Application.Features.Products.Queries.GetById;
 
 namespace WarehouseManagement.API.Controllers;
 
 [ApiController]
 [Route(("api/[controller]"))]
-public class ProductsController : ControllerBase
+public class ProductController : ControllerBase
 {
     // Inject ISender (MediatR) qua constructor
     // Không inject Handler trực tiếp — luôn đi qua ISender
     private readonly ISender _sender;
 
-    public ProductsController(ISender sender) => _sender = sender;
+    public ProductController(ISender sender) => _sender = sender;
 
     // GET api/products/{id}
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(int id)
     {
         // Tạo GetByIdQuery(id)
         var query = new GetByIdQuery(id);
@@ -32,10 +32,10 @@ public class ProductsController : ControllerBase
 
     // POST api/products
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateProductCommand productCommand)
     {
-        // Gọi _sender.Send(command)
-        var id = await _sender.Send(command);
+        // Gọi _sender.Send(productCommand)
+        var id = await _sender.Send(productCommand);
 
         // Trả về CreatedAtAction trỏ tới GetById, kèm id vừa tạo
         // Gợi ý: return CreatedAtAction(nameof(GetById), new { id }, new { id })

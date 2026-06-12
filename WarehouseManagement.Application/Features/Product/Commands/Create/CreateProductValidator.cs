@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace WarehouseManagement.Application.Features.Products.Commands.CreateProduct;
+namespace WarehouseManagement.Application.Features.Product.Commands.Create;
 
-public class CreateValidator : AbstractValidator<CreateCommand>
+public class CreateProductValidator : AbstractValidator<CreateProductCommand>
 {
-    public CreateValidator()
+    public CreateProductValidator()
     {
         // SKU: không được rỗng, tối đa 50 ký tự
         RuleFor(x => x.Sku).NotEmpty().MaximumLength(50);
@@ -21,7 +21,7 @@ public class CreateValidator : AbstractValidator<CreateCommand>
             .GreaterThan(0)
             .GreaterThanOrEqualTo(x => x.CostPrice);
 
-        // CategoryId: không được là Guid.Empty
-        RuleFor(x=>x.CategoryId).NotEqual(Guid.Empty);
+        // CategoryId: không được là Empty
+        RuleFor(x=>x.CategoryId).NotEmpty();
     }
 }

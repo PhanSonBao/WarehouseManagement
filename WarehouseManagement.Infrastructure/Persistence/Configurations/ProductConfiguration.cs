@@ -17,7 +17,14 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         // Primary key is Id
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id)
-            .ValueGeneratedNever(); // Already Generate Guid in domain
+            .UseIdentityColumn(); // Unique Identity (1,1)
+        
+        // PublicId
+        builder.HasIndex(p => p.PublicId)
+            .IsUnique();
+        builder.Property(p => p.PublicId)
+            .ValueGeneratedNever()
+            .IsRequired();
         
         // SKU
         builder.Property(p => p.Sku)
@@ -45,11 +52,13 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         // 1 Category - Many Products
         builder.HasOne(p => p.Category)
             .WithMany(c => c.Products)
-            .HasForeignKey(p => p.CategoryId);
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict); // Tránh việc xóa category thì xóa product
         
         // 1 Brand - Many Products
         builder.HasOne(p => p.Brand)
             .WithMany(b => b.Products)
-            .HasForeignKey(b => b.BrandId);
+            .HasForeignKey(b => b.BrandId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

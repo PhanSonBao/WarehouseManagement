@@ -13,7 +13,7 @@ public class ProductRepository : IProductRepository
     public ProductRepository(AppDbContext dbContext) => _dbContext = dbContext;
 
     // Lấy Sản phẩm theo Id
-    public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         => _dbContext.Products
             .Include(p => p.Variants)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);

@@ -4,13 +4,20 @@ namespace WarehouseManagement.Domain.Entities;
 
 public class InventoryItem
 {
-    // Properties
-    public Guid Id { get; private set; }
-    public Guid ProductVariantId { get; private set; }
-    public Guid WarehouseId { get; private set; }
+    #region Properties
+    public int Id { get; private set; }
+    public Guid PublicId { get; private set; }
+    public int ProductVariantId { get; private set; }
+    public int WarehouseId { get; private set; }
     public int Quantity { get; private set; }
     public int LowStockThreshold { get; private set; } // Ngưỡng cảnh báo tồn kho thấp
     public byte[] RowVersion { get; private set; } // Concurrency token
+    #endregion
+
+    #region Foreign Keys
+    public ProductVariant ProductVariant { get; private set; }
+    public Warehouse Warehouse { get; private set; }
+    #endregion
     
     // Private Constructor for EF
     private InventoryItem() { }
@@ -19,7 +26,7 @@ public class InventoryItem
     /// <summary>
     /// Tạo sản phẩm mới
     /// </summary>
-    public static InventoryItem Create(Guid productVariantId, Guid warehouseId, int lowStockThreshold)
+    public static InventoryItem Create(int productVariantId, int warehouseId, int lowStockThreshold)
     {
         // Validate 
         if (lowStockThreshold < 0)

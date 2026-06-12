@@ -27,6 +27,7 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
         // Return dto
         return new ProductDto(
             Id: product.Id,
+            PublicId: product.PublicId,
             Name: product.Name,
             Description: product.Description,
             SalePrice: product.SalePrice,
