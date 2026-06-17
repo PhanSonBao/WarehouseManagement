@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +18,22 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         services.AddScoped<IUnitOfWork, AppDbContext>();
-        
+
         // Repository
         services.AddScoped<IProductRepository, ProductRepository>();
-        
+
         return services;
     }
+
+    // public static IServiceCollection AddCustomMapper(this IServiceCollection services)
+    // {
+    //     var config = new MapperConfiguration();
+    //
+    //     var profiles = Assembly.GetExecutingAssembly()
+    //         .GetTypes()
+    //         .Where(t => typeof(IMappingProfile).IsAssignableFrom(t) && !t.IsInterface);
+    //
+    //     services.AddSingleton(profiles);
+    //     return services;
+    // }
 }

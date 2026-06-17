@@ -2,8 +2,9 @@ using MediatR;
 
 namespace WarehouseManagement.Application.Features.Category.Commands.Create;
 
-public record CreateCategoryCommand : IRequest<String>
+public record CreateCategoryCommand : IRequest<int>
 {
     // Khai báo các property input từ client gửi lên
-    public Guid ProductId { get; init; }
+    public Guid PublicId { get; init; }
+    public string Name { get; init; }
 }

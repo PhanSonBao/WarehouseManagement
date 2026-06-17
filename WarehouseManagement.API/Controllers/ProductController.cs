@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseManagement.Application.Features.Product.Commands.Create;
-using WarehouseManagement.Application.Features.Products.Queries.GetById;
+using WarehouseManagement.Application.Features.Product.Queries.GetById;
 
 namespace WarehouseManagement.API.Controllers;
 

@@ -24,7 +24,7 @@ public class ProductRepository : IProductRepository
             .Where(p => p.IsActive)
             .ToListAsync(cancellationToken);
 
-    // Thêm
+    // Thêm sản phẩm mới
     public async Task AddAsync(Product product, CancellationToken cancellationToken = default)
     {
         await _dbContext.Products.AddAsync(product, cancellationToken);

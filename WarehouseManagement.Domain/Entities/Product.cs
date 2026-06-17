@@ -4,10 +4,11 @@ namespace WarehouseManagement.Domain.Entities;
 
 public class Product
 {
-    // Data Annotaion
+    // Data Annotation
+    #region Properties
     public int Id { get; private set; }
     public Guid PublicId { get; private set; }
-    public string Sku { get; private set; }
+    public string? Sku { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
     public decimal CostPrice { get; private set; } // Giá nhập
@@ -17,6 +18,7 @@ public class Product
     public int? BrandId { get; private set; }
     public bool IsActive { get; private set; }
     public string? Variants { get; private set; }
+    #endregion
 
     #region Foreign Keys
     public Category Category { get; private set; }
@@ -24,7 +26,9 @@ public class Product
     #endregion
 
     // Private Constructor
-    private Product() { }
+    private Product()
+    {
+    }
 
     // Factory Method
     public static Product CreateProduct(string? sku, string name, decimal costPrice, decimal salePrice, int? categoryId,
@@ -48,7 +52,8 @@ public class Product
         };
     }
 
-    public void UpdateProduct(string sku, string name, decimal costPrice, decimal salePrice, int categoryId, bool isActive)
+    public void UpdateProduct(string sku, string name, decimal costPrice, decimal salePrice, int categoryId,
+        bool isActive)
     {
         // Validate Input
         if (name == null || salePrice <= 0)

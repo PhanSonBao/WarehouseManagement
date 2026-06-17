@@ -1,9 +1,8 @@
 using MediatR;
 using WarehouseManagement.Application.Common.Exceptions;
-using WarehouseManagement.Domain.Entities;
 using WarehouseManagement.Domain.Interfaces;
 
-namespace WarehouseManagement.Application.Features.Products.Queries.GetById;
+namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
 
 public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
 {
@@ -24,19 +23,7 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
             throw new NotFoundException(nameof(Product), query.Id);
         }
 
-        // Return dto
-        return new ProductDto(
-            Id: product.Id,
-            PublicId: product.PublicId,
-            Name: product.Name,
-            Description: product.Description,
-            SalePrice: product.SalePrice,
-            CostPrice: product.CostPrice,
-            Barcode: product.Barcode,
-            IsActive: product.IsActive,
-            BrandId: product.BrandId,
-            CategoryId: product.CategoryId,
-            Sku: product.Sku
-        );
+        // Return dto - Already Mapping
+        return product.ToDto();
     }
 }

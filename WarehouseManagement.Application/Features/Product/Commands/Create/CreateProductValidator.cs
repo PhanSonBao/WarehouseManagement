@@ -7,7 +7,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductCommand>
     public CreateProductValidator()
     {
         // SKU: không được rỗng, tối đa 50 ký tự
-        RuleFor(x => x.Sku).NotEmpty().MaximumLength(50);
+        // RuleFor(x => x.Sku).NotEmpty().MaximumLength(50);
 
         // Name: không được rỗng, tối đa 200 ký tự
         RuleFor(x => x.Name).NotEmpty().MaximumLength(200);

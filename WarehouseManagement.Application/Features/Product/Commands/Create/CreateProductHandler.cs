@@ -20,7 +20,6 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
         // Gọi unitOfWork.SaveChangesAsync(ct)
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        // Return product.Id
         return product.Id;
     }
 }
