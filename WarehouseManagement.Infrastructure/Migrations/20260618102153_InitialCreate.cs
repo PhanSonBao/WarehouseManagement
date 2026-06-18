@@ -15,7 +15,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "Brands",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -27,7 +29,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -36,26 +40,12 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InventoryItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductVariantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    LowStockThreshold = table.Column<int>(type: "int", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InventoryItems", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductVariants",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -67,7 +57,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "StockMovements",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -79,7 +71,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "Warehouses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -91,16 +85,19 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Sku = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CostPrice = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
                     SalePrice = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
-                    BarCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    Barcode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    BrandId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Variants = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,11 +106,42 @@ namespace WarehouseManagement.Infrastructure.Migrations
                         name: "FK_Products_Brands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "Brands",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductVariantId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    LowStockThreshold = table.Column<int>(type: "int", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventoryItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryItems_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -131,9 +159,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_BarCode",
+                name: "IX_Products_Barcode",
                 table: "Products",
-                column: "BarCode");
+                column: "Barcode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -144,6 +172,12 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_PublicId",
+                table: "Products",
+                column: "PublicId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Sku",
@@ -162,10 +196,10 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "ProductVariants");
+                name: "StockMovements");
 
             migrationBuilder.DropTable(
-                name: "StockMovements");
+                name: "ProductVariants");
 
             migrationBuilder.DropTable(
                 name: "Warehouses");

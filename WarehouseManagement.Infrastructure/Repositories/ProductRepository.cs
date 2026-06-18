@@ -18,6 +18,14 @@ public class ProductRepository : IProductRepository
             .Include(p => p.Variants)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
+    public async Task<Product?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Products
+            .Include(p => p.Category)
+            .Include(p => p.Variants)
+            .FirstOrDefaultAsync(p => p.PublicId == publicId, cancellationToken);
+    }
+
     // Lấy tất cả sản phẩm có IsActive = true
     public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default)
         => await _dbContext.Products

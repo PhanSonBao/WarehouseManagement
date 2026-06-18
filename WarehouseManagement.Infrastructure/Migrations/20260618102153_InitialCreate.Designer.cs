@@ -12,7 +12,7 @@ using WarehouseManagement.Infrastructure.Persistence;
 namespace WarehouseManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260526074353_InitialCreate")]
+    [Migration("20260618102153_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,20 +20,25 @@ namespace WarehouseManagement.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.27")
+                .HasAnnotation("ProductVersion", "8.0.28")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Brand", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -42,13 +47,18 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -57,14 +67,19 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.InventoryItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("LowStockThreshold")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ProductVariantId")
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PublicId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -76,8 +91,8 @@ namespace WarehouseManagement.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<Guid>("WarehouseId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -92,18 +107,21 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("BarCode")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Barcode")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("BrandId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("CostPrice")
                         .HasPrecision(18)
@@ -121,6 +139,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("SalePrice")
                         .HasPrecision(18)
                         .HasColumnType("decimal(18,0)");
@@ -130,13 +151,19 @@ namespace WarehouseManagement.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Variants")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BarCode");
+                    b.HasIndex("Barcode");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PublicId")
+                        .IsUnique();
 
                     b.HasIndex("Sku")
                         .IsUnique();
@@ -146,13 +173,18 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.ProductVariant", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -161,13 +193,18 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.StockMovement", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -176,30 +213,54 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Warehouse", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.ToTable("Warehouses");
                 });
 
+            modelBuilder.Entity("WarehouseManagement.Domain.Entities.InventoryItem", b =>
+                {
+                    b.HasOne("WarehouseManagement.Domain.Entities.ProductVariant", "ProductVariant")
+                        .WithMany()
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WarehouseManagement.Domain.Entities.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductVariant");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Product", b =>
                 {
                     b.HasOne("WarehouseManagement.Domain.Entities.Brand", "Brand")
                         .WithMany("Products")
-                        .HasForeignKey("BrandId");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WarehouseManagement.Domain.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Brand");
 

@@ -16,19 +16,26 @@ public class CategoryRepository : ICategoryRepository
     {
         return _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
-    
+
+    // Lấy chi tiết danh mục theo publicId
+    public async Task<Category?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Categories
+            .FirstOrDefaultAsync(c => c.PublicId == publicId, cancellationToken);
+    }
+
     // Đọc danh sách danh mục
     public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Categories.ToListAsync(cancellationToken);
     }
-    
+
     // Thêm danh mục mới
     public async Task AddAsync(Category category, CancellationToken cancellationToken = default)
     {
         await _dbContext.Categories.AddAsync(category, cancellationToken);
     }
-    
+
     // Lưu thay đổi
     public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {

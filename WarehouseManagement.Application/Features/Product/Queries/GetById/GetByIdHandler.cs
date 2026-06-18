@@ -17,10 +17,10 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
 
     public async Task<ProductDto> Handle(GetByIdQuery query, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
+        var product = await _productRepository.GetByPublicIdAsync(query.PublicId, cancellationToken);
         if (product == null)
         {
-            throw new NotFoundException(nameof(Product), query.Id);
+            throw new NotFoundException(nameof(Product), query.PublicId);
         }
 
         // Return dto - Already Mapping

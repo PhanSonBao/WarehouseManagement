@@ -1,7 +1,6 @@
 namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
 
 public record ProductDto(
-    int Id,
     Guid PublicId,
     string? Sku,
     string Name,
@@ -9,7 +8,7 @@ public record ProductDto(
     decimal CostPrice,
     decimal SalePrice,
     string? Barcode,
-    int? CategoryId,
+    Guid CategoryPublicId,
     int? BrandId,
     bool IsActive
 );

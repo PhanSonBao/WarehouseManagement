@@ -2,7 +2,7 @@
 
 namespace WarehouseManagement.Application.Features.Product.Commands.Create;
 
-public record CreateProductCommand : IRequest<int>
+public record CreateProductCommand : IRequest<Guid>
 {
     // Khai báo các property input từ client gửi lên:
     public Guid PublicId { get; init; }
