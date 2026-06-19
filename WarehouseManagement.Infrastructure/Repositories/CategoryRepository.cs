@@ -34,6 +34,8 @@ public class CategoryRepository : ICategoryRepository
     public async Task AddAsync(Category category, CancellationToken cancellationToken = default)
     {
         await _dbContext.Categories.AddAsync(category, cancellationToken);
+        Console.WriteLine(
+            $"State = {_dbContext.Entry(category).State}");
     }
 
     // Lưu thay đổi

@@ -11,10 +11,10 @@ public class CategoryController(ISender sender) : ControllerBase
 {
     // GET /api/categories/{id}
     [HttpGet("{publicId:guid}")]
-    public async Task<IActionResult> GetById(Guid publicId)
+    public async Task<IActionResult> GetById(Guid id)
     {
         // Create GetByIdQuery
-        var query = new GetByIdQuery(publicId);
+        var query = new GetByIdQuery(id);
         var result = await sender.Send(query);
 
         return Ok(result);
@@ -24,7 +24,7 @@ public class CategoryController(ISender sender) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
     {
-        var id = await sender.Send(command);
-        return CreatedAtAction(nameof(GetById), new { id }, new { id });
+        var publicId = await sender.Send(command);
+        return CreatedAtAction(nameof(GetById), new { publicId }, new { publicId });
     }
 }
