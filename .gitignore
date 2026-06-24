@@ -49,7 +49,7 @@ msbuild.err
 msbuild.wrn
 
 # appsettings
-appsettings.json
+appsettings.*.json
 # env
 .evn
 
