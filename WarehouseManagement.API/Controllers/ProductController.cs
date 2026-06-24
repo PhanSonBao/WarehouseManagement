@@ -10,6 +10,14 @@ namespace WarehouseManagement.API.Controllers;
 // Inject ISender (MediatR) qua constructor
 public class ProductController(ISender sender) : ControllerBase
 {
+    // GET api/products
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+
+        return Ok();
+    }
+    
     // GET api/products/{id}
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
