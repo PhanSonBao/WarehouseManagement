@@ -12,8 +12,7 @@ public class ExceptionMiddleware
     {
         _next = next;
     }
-
-
+    
     public async Task InvokeAsync(HttpContext context)
     {
         try
@@ -33,6 +32,8 @@ public class ExceptionMiddleware
         switch (ex)
         {
             case ValidationException validationException:
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                
                 await context.Response.WriteAsJsonAsync(new
                 {
                     error = "Validation Error",
