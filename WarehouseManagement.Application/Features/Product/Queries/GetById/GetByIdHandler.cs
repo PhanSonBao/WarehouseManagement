@@ -6,10 +6,10 @@ namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
 
 public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
 {
-    // 1. Tạo private readonly field cho IProductRepository
+    // 1. Create private readonly field for IProductRepository
     private readonly IProductRepository _productRepository;
 
-    // 2. Nhận IProductRepository trong constructor
+    // 2. Inject IProductRepository into the constructor
     public GetByIdHandler(IProductRepository productRepository)
     {
         _productRepository = productRepository;
