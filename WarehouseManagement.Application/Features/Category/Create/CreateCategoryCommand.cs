@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace WarehouseManagement.Application.Features.Category.Commands.Create;
+namespace WarehouseManagement.Application.Features.Category.Create;
 
 public record CreateCategoryCommand : IRequest<Guid>
 {

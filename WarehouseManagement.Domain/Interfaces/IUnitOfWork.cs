@@ -1,15 +1,16 @@
 namespace WarehouseManagement.Domain.Interfaces;
 
-public interface IUnitOfWork
+public interface IUnitOfWork : IDisposable
 {
-    // Method SaveChangesAsync — lưu tất cả thay đổi, trả về số rows affected
-    // Method BeginTransactionAsync — bắt đầu transaction
-    // Method CommitAsync — xác nhận transaction (ghi vào DB)
-    // Method RollbackAsync — hủy transaction nếu có lỗi
+    // Lưu tất cả thay đổi, trả về số rows affected
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     
-    // Implement later
-    // Task BeginTransactionAsync();
-    // Task CommitAsync();
-    // Task RollbackAsync();
+    // Bắt đầu transaction
+    Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+    
+    // Xác nhận transaction (ghi vào DB)
+    Task CommitAsync(CancellationToken cancellationToken = default);
+    
+    // Hủy transaction nếu có lỗi và roll back về dữ liệu cũ
+    Task RollbackAsync(CancellationToken cancellationToken = default);
 }

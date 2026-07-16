@@ -1,4 +1,5 @@
 using FluentValidation;
+using WarehouseManagement.Application.Features.Product.Update;
 
 namespace WarehouseManagement.Application.Features.Product.Commands.Update;
 

@@ -1,7 +1,8 @@
 using MediatR;
+using WarehouseManagement.Application.Features.Product.Commands.Create;
 using WarehouseManagement.Domain.Interfaces;
 
-namespace WarehouseManagement.Application.Features.Product.Commands.Create;
+namespace WarehouseManagement.Application.Features.Product.Create;
 
 // Logic create product and saving to DB are implemented here
 public class CreateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)

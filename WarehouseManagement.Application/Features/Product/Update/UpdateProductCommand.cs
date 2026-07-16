@@ -1,8 +1,9 @@
 using MediatR;
 
-namespace WarehouseManagement.Application.Features.Product.Commands.Update;
+namespace WarehouseManagement.Application.Features.Product.Update;
 
-public record UpdateProductCommand(
+public abstract record UpdateProductCommand(
+    int Id,
     Guid PublicId,
     string Sku,
     string Name,

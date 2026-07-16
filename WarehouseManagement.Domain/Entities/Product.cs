@@ -26,9 +26,7 @@ public class Product
     #endregion
 
     // Private Constructor
-    private Product()
-    {
-    }
+    private Product() { }
 
     // Factory Method
     public static Product CreateProduct(string? sku, string name, decimal costPrice, decimal salePrice, int? categoryId,
@@ -52,7 +50,7 @@ public class Product
         };
     }
 
-    public void Update(Guid publicId, string sku, string name, decimal costPrice, decimal salePrice, int categoryId,
+    public void Update(string sku, string name, decimal costPrice, decimal salePrice, int categoryId,
         bool isActive)
     {
         // Validate Input
@@ -60,8 +58,7 @@ public class Product
         {
             throw new DomainException("Name cannot be null and Sale Price must be > 0");
         }
-
-        PublicId = publicId;
+        
         Sku = sku;
         Name = name;
         CostPrice = costPrice;

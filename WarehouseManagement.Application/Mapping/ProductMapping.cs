@@ -1,4 +1,6 @@
-namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
+using WarehouseManagement.Application.Features.Product.Queries.GetById;
+
+namespace WarehouseManagement.Application.Features.Product;
 
 internal static class ProductMapping
 {

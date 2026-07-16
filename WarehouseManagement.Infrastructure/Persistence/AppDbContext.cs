@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using WarehouseManagement.Domain.Entities;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Infrastructure.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IUnitOfWork
+public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTransaction currentTransaction) : DbContext(options), IUnitOfWork
 {
-    private IDbContextTransaction _currentTransaction;
+    private IDbContextTransaction _currentTransaction = currentTransaction;
 
     // Db set
     public DbSet<Brand> Brands => Set<Brand>();
@@ -29,18 +30,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         return await base.SaveChangesAsync(cancellationToken);
     }
 
-    // public Task BeginTransactionAsync()
-    // {
-    //     throw new NotImplementedException();
-    // }
-    //
-    // public Task CommitAsync()
-    // {
-    //     throw new NotImplementedException();
-    // }
-    //
-    // public Task RollbackAsync()
-    // {
-    //     throw new NotImplementedException();
-    // }
+    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+    {
+        _currentTransaction = await Database.BeginTransactionAsync(cancellationToken);
+    }
+
+    public async Task CommitAsync(CancellationToken cancellationToken = default)
+    {
+        await _currentTransaction.CommitAsync(cancellationToken);
+        await _currentTransaction.DisposeAsync();
+    }
+
+    public async Task RollbackAsync(CancellationToken cancellationToken = default)
+    {
+        await _currentTransaction.RollbackAsync(cancellationToken);
+        await _currentTransaction.DisposeAsync();
+    }
 }

@@ -1,7 +1,7 @@
 using MediatR;
 using WarehouseManagement.Domain.Interfaces;
 
-namespace WarehouseManagement.Application.Features.Category.Commands.Create;
+namespace WarehouseManagement.Application.Features.Category.Create;
 
 public class CreateCategoryHandler(ICategoryRepository categoryRepsository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateCategoryCommand, Guid>

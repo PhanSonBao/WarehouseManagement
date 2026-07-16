@@ -1,8 +1,9 @@
 using MediatR;
 using WarehouseManagement.Application.Common.Exceptions;
+using WarehouseManagement.Application.Features.Product.Queries.GetById;
 using WarehouseManagement.Domain.Interfaces;
 
-namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
+namespace WarehouseManagement.Application.Features.Product.GetById;
 
 public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
 {

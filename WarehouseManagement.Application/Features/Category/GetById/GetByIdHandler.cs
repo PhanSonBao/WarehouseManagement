@@ -1,5 +1,6 @@
 using MediatR;
 using WarehouseManagement.Application.Common.Exceptions;
+using WarehouseManagement.Application.DTO;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Category.Queries.GetById;

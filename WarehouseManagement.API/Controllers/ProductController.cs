@@ -1,7 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseManagement.Application.Features.Product.Commands.Create;
-using WarehouseManagement.Application.Features.Product.Queries.GetById;
+using WarehouseManagement.Application.Features.Product.Delete;
+using WarehouseManagement.Application.Features.Product.GetAll;
+using WarehouseManagement.Application.Features.Product.GetById;
+using WarehouseManagement.Application.Features.Product.Update;
 
 namespace WarehouseManagement.API.Controllers;
 
@@ -14,10 +17,12 @@ public class ProductController(ISender sender) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
+        var query = new GetAllQuery();
+        var result = await sender.Send(query);
 
-        return Ok();
+        return Ok(result);
     }
-    
+
     // GET api/products/{id}
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
@@ -42,5 +47,25 @@ public class ProductController(ISender sender) : ControllerBase
 
         // Trả về CreatedAtAction trỏ tới GetById, kèm id vừa tạo
         return CreatedAtAction(nameof(GetById), new { publicId }, new { publicId });
+    }
+
+    // PUT api/products/{publicId}
+    [HttpPut("{publicId:guid}")]
+    public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand productCommand)
+    {
+        var command = productCommand with { PublicId = publicId };
+        await sender.Send(command);
+        
+        return NoContent();
+    }
+    
+    // DELETE api/products/{publicId}
+    [HttpPatch]
+    public async Task<IActionResult> Delete(int id, string name)
+    {
+        var command = new DeleteProductCommand(id, name);
+        await sender.Send(command);
+        
+        return NoContent();
     }
 }
