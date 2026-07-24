@@ -1,5 +1,5 @@
 using MediatR;
-using WarehouseManagement.Application.Features.Product.Queries.GetById;
+using WarehouseManagement.Application.DTO;
 
 namespace WarehouseManagement.Application.Features.Product.GetAll;
 

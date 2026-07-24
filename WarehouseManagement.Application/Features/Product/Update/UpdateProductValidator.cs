@@ -1,7 +1,6 @@
 using FluentValidation;
-using WarehouseManagement.Application.Features.Product.Update;
 
-namespace WarehouseManagement.Application.Features.Product.Commands.Update;
+namespace WarehouseManagement.Application.Features.Product.Update;
 
 public class UpdateProductValidator : AbstractValidator<UpdateProductCommand>
 {
@@ -13,12 +12,6 @@ public class UpdateProductValidator : AbstractValidator<UpdateProductCommand>
         RuleFor(x => x.Name)
             .NotEmpty()
             .MaximumLength(200);
-
-        RuleFor(x => x.CostPrice)
-            .GreaterThanOrEqualTo(0);
-
-        RuleFor(x => x.SalePrice)
-            .GreaterThanOrEqualTo(0);
 
         RuleFor(x => x.CategoryId)
             .NotEmpty();

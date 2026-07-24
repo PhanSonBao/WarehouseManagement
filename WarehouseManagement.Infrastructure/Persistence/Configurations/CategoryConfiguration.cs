@@ -11,7 +11,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         // Table Name
-        builder.ToTable("Categories");
+        builder.ToTable("Category");
         
         // Primary key is Id
         builder.HasKey(c => c.Id);

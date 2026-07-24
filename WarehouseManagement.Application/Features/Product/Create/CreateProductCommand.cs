@@ -1,14 +1,14 @@
 ﻿using MediatR;
 
-namespace WarehouseManagement.Application.Features.Product.Commands.Create;
+namespace WarehouseManagement.Application.Features.Product.Create;
 
 public record CreateProductCommand(
     Guid PublicId,
     string Name,
     string Sku,
     string? Description,
-    decimal CostPrice,
-    decimal SalePrice,
+    long CostPrice,
+    long SalePrice,
     string? BarCode,
     int CategoryId,
     bool IsActive

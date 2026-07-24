@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace WarehouseManagement.Application.Features.Product.Commands.Create;
+namespace WarehouseManagement.Application.Features.Product.Create;
 
 public class CreateProductValidator : AbstractValidator<CreateProductCommand>
 {

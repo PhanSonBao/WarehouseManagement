@@ -15,8 +15,7 @@ public class UpdateProductHandler(IProductRepository productRepository, IUnitOfW
             throw new NotFoundException("Product", command.Name);
         }
 
-        product.Update(command.Sku, command.Name, command.CostPrice,
-            command.SalePrice, command.CategoryId, command.IsActive);
+        product.Update(command.Name, command.CategoryId, command.IsActive);
         
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

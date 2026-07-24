@@ -10,7 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTran
 {
     private IDbContextTransaction _currentTransaction = currentTransaction;
 
-    // Db set
+    #region Db set
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<InventoryItem> InventoryItems => Set<InventoryItem>();
@@ -18,6 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTran
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+    #endregion
 
     // Load all classes Configuration classes
     protected override void OnModelCreating(ModelBuilder builder)

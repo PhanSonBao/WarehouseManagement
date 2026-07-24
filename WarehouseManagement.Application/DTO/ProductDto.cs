@@ -1,14 +1,10 @@
-namespace WarehouseManagement.Application.Features.Product.Queries.GetById;
+namespace WarehouseManagement.Application.DTO;
 
 public record ProductDto(
     Guid PublicId,
-    string? Sku,
     string Name,
     string Description,
-    decimal CostPrice,
-    decimal SalePrice,
-    string? Barcode,
-    Guid CategoryPublicId,
+    int? CategoryId,
     int? BrandId,
     bool IsActive
 );

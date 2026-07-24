@@ -24,7 +24,7 @@ public class InventoryItem
     
     // Factory Method
     /// <summary>
-    /// Tạo sản phẩm mới
+    /// Create new
     /// </summary>
     public static InventoryItem Create(int productVariantId, int warehouseId, int lowStockThreshold)
     {
@@ -45,7 +45,7 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Nhập kho
+    /// Import
     /// </summary>
     public void AddStock(int quantity)
     {
@@ -59,7 +59,7 @@ public class InventoryItem
     }
     
     /// <summary>
-    /// Xuất kho
+    /// Export
     /// </summary>
     public void Deduct(int quantity)
     {

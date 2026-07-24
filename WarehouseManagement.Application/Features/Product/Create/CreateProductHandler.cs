@@ -1,5 +1,4 @@
 using MediatR;
-using WarehouseManagement.Application.Features.Product.Commands.Create;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.Create;
@@ -12,8 +11,7 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
     {
         // Gọi Product.Create(...) với các giá trị từ productCommand
         // (Factory method đã viết trong Domain)
-        var product = Domain.Entities.Product.CreateProduct(command.Sku, command.Name,
-            command.CostPrice, command.SalePrice, command.CategoryId, command.IsActive);
+        var product = Domain.Entities.Product.CreateProduct(command.Name, command.CategoryId, command.IsActive);
 
         // Gọi repository.AddAsync(product, ct)
         await productRepository.AddAsync(product, cancellationToken);

@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WarehouseManagement.Application.Features.Product.Commands.Create;
+using WarehouseManagement.Application.Features.Product.Create;
 using WarehouseManagement.Application.Features.Product.Delete;
 using WarehouseManagement.Application.Features.Product.GetAll;
 using WarehouseManagement.Application.Features.Product.GetById;
@@ -38,7 +38,6 @@ public class ProductController(ISender sender) : ControllerBase
         return Ok(result);
     }
 
-    // POST api/products
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCommand productCommand)
     {

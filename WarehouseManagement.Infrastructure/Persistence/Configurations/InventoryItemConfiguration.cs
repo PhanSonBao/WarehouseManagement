@@ -11,7 +11,7 @@ public class InventoryItemConfiguration : IEntityTypeConfiguration<InventoryItem
     public void Configure(EntityTypeBuilder<InventoryItem> builder)
     {
         // Table name
-        builder.ToTable("InventoryItems");
+        builder.ToTable("InventoryItem");
 
         // Primary key
         builder.HasKey(i => i.Id);

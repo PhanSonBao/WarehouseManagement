@@ -1,6 +1,7 @@
 using MediatR;
+using WarehouseManagement.Application.DTO;
 using WarehouseManagement.Application.Features.Product.GetAll;
-using WarehouseManagement.Application.Features.Product.Queries.GetById;
+using WarehouseManagement.Application.Mapping;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.Queries.GetAll;
