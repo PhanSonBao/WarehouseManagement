@@ -1,15 +1,13 @@
 ﻿using MediatR;
+using WarehouseManagement.Application.Features.ProductVariant.Create;
 
 namespace WarehouseManagement.Application.Features.Product.Create;
 
-public record CreateProductCommand(
-    Guid PublicId,
+public sealed record CreateProductCommand(
     string Name,
-    string Sku,
     string? Description,
-    long CostPrice,
-    long SalePrice,
-    string? BarCode,
     int CategoryId,
-    bool IsActive
+    int BrandId,
+    bool IsActive,
+    List<CreateVariantCommand> Variants
 ) : IRequest<Guid>;

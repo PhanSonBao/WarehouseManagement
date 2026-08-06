@@ -13,7 +13,7 @@ public class WarehouseRepository(AppDbContext dbContext) : IWarehouseRepository
             .FirstOrDefaultAsync(w => w.Id == id, cancellationToken: cancellationToken);
     }
 
-    public async Task<Warehouse?> GetByPublicId(Guid publicId, CancellationToken cancellationToken = default)
+    public async Task<Warehouse?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default)
     {
         return await dbContext.Warehouses
             .FirstOrDefaultAsync(w => w.PublicId == publicId, cancellationToken);

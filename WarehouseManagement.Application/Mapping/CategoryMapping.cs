@@ -1,6 +1,6 @@
 using WarehouseManagement.Application.DTO;
 
-namespace WarehouseManagement.Application.Features.Category.Queries.GetById;
+namespace WarehouseManagement.Application.Mapping;
 
 internal static class CategoryMapping
 {

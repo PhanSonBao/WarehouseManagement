@@ -46,7 +46,7 @@ public class Warehouse
         };
     }
 
-    public void Update(string name, string? address)
+    public void Update(string name, string? address, bool isActive)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -55,6 +55,7 @@ public class Warehouse
 
         Name = name;
         Address = address ?? "";
+        IsActive = isActive;
     }
 
     public void Deactive()

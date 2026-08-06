@@ -2,8 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseManagement.Application.Features.Product.Create;
 using WarehouseManagement.Application.Features.Product.Delete;
-using WarehouseManagement.Application.Features.Product.GetAll;
 using WarehouseManagement.Application.Features.Product.GetById;
+using WarehouseManagement.Application.Features.Product.GetList;
 using WarehouseManagement.Application.Features.Product.Update;
 
 namespace WarehouseManagement.API.Controllers;
@@ -15,9 +15,9 @@ public class ProductController(ISender sender) : ControllerBase
 {
     // GET api/products
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetList()
     {
-        var query = new GetAllQuery();
+        var query = new GetListQuery();
         var result = await sender.Send(query);
 
         return Ok(result);
@@ -39,10 +39,10 @@ public class ProductController(ISender sender) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateProductCommand productCommand)
+    public async Task<IActionResult> Create([FromBody] CreateProductCommand create)
     {
         // Gọi _sender.Send(productCommand)
-        var publicId = await sender.Send(productCommand);
+        var publicId = await sender.Send(create);
 
         // Trả về CreatedAtAction trỏ tới GetById, kèm id vừa tạo
         return CreatedAtAction(nameof(GetById), new { publicId }, new { publicId });
@@ -50,9 +50,9 @@ public class ProductController(ISender sender) : ControllerBase
 
     // PUT api/products/{publicId}
     [HttpPut("{publicId:guid}")]
-    public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand productCommand)
+    public async Task<IActionResult> Update(int id, Guid publicId, [FromBody] UpdateProductCommand update)
     {
-        var command = productCommand with { PublicId = publicId };
+        var command = update with { Id = id };
         await sender.Send(command);
         
         return NoContent();
@@ -60,9 +60,9 @@ public class ProductController(ISender sender) : ControllerBase
     
     // DELETE api/products/{publicId}
     [HttpPatch]
-    public async Task<IActionResult> Delete(int id, string name)
+    public async Task<IActionResult> Delete(Guid publicId)
     {
-        var command = new DeleteProductCommand(id, name);
+        var command = new DeleteProductCommand(publicId);
         await sender.Send(command);
         
         return NoContent();

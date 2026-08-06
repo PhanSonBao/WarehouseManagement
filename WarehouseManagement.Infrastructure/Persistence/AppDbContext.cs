@@ -1,16 +1,16 @@
-﻿using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using WarehouseManagement.Domain.Entities;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Infrastructure.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTransaction currentTransaction) : DbContext(options), IUnitOfWork
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IUnitOfWork
 {
-    private IDbContextTransaction _currentTransaction = currentTransaction;
+    private IDbContextTransaction? _currentTransaction;
 
     #region Db set
+
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<InventoryItem> InventoryItems => Set<InventoryItem>();
@@ -18,6 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTran
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+
     #endregion
 
     // Load all classes Configuration classes
@@ -38,12 +39,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IDbContextTran
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
     {
+        if (_currentTransaction == null)
+        {
+            throw new InvalidOperationException("No active transaction.");
+        }
+
         await _currentTransaction.CommitAsync(cancellationToken);
         await _currentTransaction.DisposeAsync();
     }
 
     public async Task RollbackAsync(CancellationToken cancellationToken = default)
     {
+        if (_currentTransaction == null)
+        {
+            throw new InvalidOperationException("No active transaction.");
+        }
         await _currentTransaction.RollbackAsync(cancellationToken);
         await _currentTransaction.DisposeAsync();
     }

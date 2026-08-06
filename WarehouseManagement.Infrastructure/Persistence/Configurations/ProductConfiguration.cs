@@ -37,9 +37,15 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .OnDelete(DeleteBehavior.Restrict); // Avoid deleting product when deleting category
         
         // 1 Brand - Many Products
-        builder.HasOne(p => p.Brand)
+        builder.HasOne(p => p.Brands)
             .WithMany(b => b.Products)
             .HasForeignKey(b => b.BrandId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // 1 Product - Many Variants
+        builder.HasMany(p => p.Variants)
+            .WithOne(v => v.Product)
+            .HasForeignKey(v => v.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

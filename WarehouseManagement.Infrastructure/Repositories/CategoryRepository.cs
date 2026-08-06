@@ -25,7 +25,7 @@ public class CategoryRepository : ICategoryRepository
     }
 
     // Đọc danh sách danh mục
-    public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Category>> GetListAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Categories.ToListAsync(cancellationToken);
     }

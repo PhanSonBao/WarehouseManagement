@@ -9,10 +9,10 @@ public class DeleteProductHandler (IProductRepository productRepository, IUnitOf
 {
     public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
-        var product = await productRepository.GetByIdAsync(command.Id, cancellationToken);
+        var product = await productRepository.GetByPublicIdAsync(command.PublicId, cancellationToken);
         if (product == null)
         {
-            throw new NotFoundException("Product", command.Name);
+            throw new NotFoundException("Product", command.PublicId);
         }
 
         product.Deactive();

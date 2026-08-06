@@ -1,9 +1,10 @@
 using MediatR;
 using WarehouseManagement.Application.Common.Exceptions;
 using WarehouseManagement.Application.DTO;
+using WarehouseManagement.Application.Mapping;
 using WarehouseManagement.Domain.Interfaces;
 
-namespace WarehouseManagement.Application.Features.Category.Queries.GetById;
+namespace WarehouseManagement.Application.Features.Category.GetById;
 
 public class GetByIdHandler : IRequestHandler<GetByIdQuery, CategoryDto>
 {

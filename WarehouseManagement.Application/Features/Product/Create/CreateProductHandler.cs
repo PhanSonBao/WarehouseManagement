@@ -11,7 +11,27 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
     {
         // Gọi Product.Create(...) với các giá trị từ productCommand
         // (Factory method đã viết trong Domain)
-        var product = Domain.Entities.Product.CreateProduct(command.Name, command.CategoryId, command.IsActive);
+        var product = Domain.Entities.Product.CreateProduct(
+            command.Name,
+            command.Description,
+            command.CategoryId,
+            command.BrandId,
+            command.IsActive
+        );
+
+        foreach (var item in command.Variants)
+        {
+            var variant = Domain.Entities.ProductVariant.CreateVariant(
+                item.Name,
+                item.ProductId,
+                item.CostPrice,
+                item.SalePrice,
+                item.Barcode,
+                item.Sku
+            );
+            
+            product.AddVariant(variant);
+        }
 
         // Gọi repository.AddAsync(product, ct)
         await productRepository.AddAsync(product, cancellationToken);

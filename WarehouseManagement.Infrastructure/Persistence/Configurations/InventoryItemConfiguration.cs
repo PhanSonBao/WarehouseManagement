@@ -17,7 +17,7 @@ public class InventoryItemConfiguration : IEntityTypeConfiguration<InventoryItem
         builder.HasKey(i => i.Id);
 
         // Mỗi sản phẩm chỉ có 1 dòng tồn kho tại 1 kho duy nhất
-        builder.HasIndex(i => i.ProductVariantId)
+        builder.HasIndex(i => i.VariantId)
             .IsUnique();
         builder.HasIndex(i => i.WarehouseId)
             .IsUnique();

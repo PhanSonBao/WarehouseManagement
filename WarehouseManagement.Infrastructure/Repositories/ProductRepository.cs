@@ -10,6 +10,7 @@ public class ProductRepository(AppDbContext dbContext) : IProductRepository
     // Lấy Sản phẩm theo Id
     public Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         => dbContext.Products
+            .Include(p => p.Category)
             .Include(p => p.Variants)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
@@ -22,8 +23,10 @@ public class ProductRepository(AppDbContext dbContext) : IProductRepository
     }
 
     // Lấy tất cả sản phẩm có IsActive = true
-    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Product>> GetListAsync(CancellationToken cancellationToken = default)
         => await dbContext.Products
+            .Include(p => p.Category)
+            .Include(p => p.Variants)
             .Where(p => p.IsActive)
             .ToListAsync(cancellationToken);
 
@@ -31,11 +34,5 @@ public class ProductRepository(AppDbContext dbContext) : IProductRepository
     public async Task AddAsync(Product product, CancellationToken cancellationToken = default)
     {
         await dbContext.Products.AddAsync(product, cancellationToken);
-    }
-
-    // Lưu thay đổi
-    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

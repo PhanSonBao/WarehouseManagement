@@ -3,8 +3,8 @@ namespace WarehouseManagement.Application.DTO;
 public record ProductVariantDto
 (
     Guid PublicId,
-    decimal CostPrice,
-    decimal SalePrice,
+    long CostPrice,
+    long SalePrice,
     string? Barcode,
     string? Sku
 );

@@ -4,7 +4,7 @@ namespace WarehouseManagement.Domain.Entities;
 
 public class Category
 {
-    #region Data Anootation
+    #region Properties
 
     public int Id { get; private set; }
     public Guid PublicId { get; private set; }
@@ -31,7 +31,7 @@ public class Category
         return new Category
         {
             PublicId = Guid.NewGuid(),
-            Name = name
+            Name = name,
         };
     }
 }

@@ -7,7 +7,7 @@ public class InventoryItem
     #region Properties
     public int Id { get; private set; }
     public Guid PublicId { get; private set; }
-    public int ProductVariantId { get; private set; }
+    public int VariantId { get; private set; }
     public int WarehouseId { get; private set; }
     public int Quantity { get; private set; }
     public int LowStockThreshold { get; private set; } // Ngưỡng cảnh báo tồn kho thấp
@@ -26,7 +26,7 @@ public class InventoryItem
     /// <summary>
     /// Create new
     /// </summary>
-    public static InventoryItem Create(int productVariantId, int warehouseId, int lowStockThreshold)
+    public static InventoryItem Create(int variantId, int warehouseId, int lowStockThreshold)
     {
         // Validate 
         if (lowStockThreshold < 0)
@@ -37,7 +37,7 @@ public class InventoryItem
         
         return new InventoryItem
         {
-            ProductVariantId =  productVariantId,
+            VariantId =  variantId,
             WarehouseId =   warehouseId,
             LowStockThreshold =  lowStockThreshold,
             Quantity = 0
