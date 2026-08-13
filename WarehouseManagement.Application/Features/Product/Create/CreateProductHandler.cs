@@ -7,7 +7,7 @@ namespace WarehouseManagement.Application.Features.Product.Create;
 public class CreateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateProductCommand, Guid>
 {
-    public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateProductCommand command, CancellationToken ct)
     {
         // Gọi Product.Create(...) với các giá trị từ productCommand
         // (Factory method đã viết trong Domain)
@@ -34,9 +34,9 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
         }
 
         // Gọi repository.AddAsync(product, ct)
-        await productRepository.AddAsync(product, cancellationToken);
+        await productRepository.AddAsync(product, ct);
         // Gọi unitOfWork.SaveChangesAsync(ct)
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return product.PublicId;
     }

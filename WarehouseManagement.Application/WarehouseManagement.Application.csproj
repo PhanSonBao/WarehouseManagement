@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\InventoryItem\" />
     <Folder Include="Features\Warehouse\Delete\" />
     <Folder Include="Features\Warehouse\GetList\" />
   </ItemGroup>

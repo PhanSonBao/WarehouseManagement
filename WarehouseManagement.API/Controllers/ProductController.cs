@@ -50,9 +50,9 @@ public class ProductController(ISender sender) : ControllerBase
 
     // PUT api/products/{publicId}
     [HttpPut("{publicId:guid}")]
-    public async Task<IActionResult> Update(int id, Guid publicId, [FromBody] UpdateProductCommand update)
+    public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand update)
     {
-        var command = update with { Id = id };
+        var command = update with { PublicId = publicId };
         await sender.Send(command);
         
         return NoContent();

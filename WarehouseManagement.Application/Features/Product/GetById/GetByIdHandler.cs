@@ -17,9 +17,9 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
         _productRepository = productRepository;
     }
 
-    public async Task<ProductDto> Handle(GetByIdQuery query, CancellationToken cancellationToken)
+    public async Task<ProductDto> Handle(GetByIdQuery query, CancellationToken ct)
     {
-        var product = await _productRepository.GetByPublicIdAsync(query.PublicId, cancellationToken);
+        var product = await _productRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (product == null)
         {
             throw new NotFoundException(nameof(Product), query.PublicId);

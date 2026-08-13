@@ -6,15 +6,14 @@ namespace WarehouseManagement.Application.Features.Category.Create;
 public class CreateCategoryHandler(ICategoryRepository categoryRepsository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateCategoryCommand, Guid>
 {
-    public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken ct)
     {
         // Call Category.Create from categoryCommand
         var category = Domain.Entities.Category.CreateCategory(command.Name);
 
-        await categoryRepsository.AddAsync(category, cancellationToken);
-        var rows = await unitOfWork.SaveChangesAsync(cancellationToken);
-        Console.WriteLine($"Rows = {rows}");
-        Console.WriteLine($"CategoryId = {category.Id}");        
+        await categoryRepsository.AddAsync(category, ct);
+        await unitOfWork.SaveChangesAsync(ct);
+
         return category.PublicId;
     }
 }

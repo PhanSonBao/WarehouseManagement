@@ -7,17 +7,17 @@ namespace WarehouseManagement.Application.Features.Product.Update;
 public class UpdateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateProductCommand, Unit>
 {
-    public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken ct)
     {
-        var product = await productRepository.GetByIdAsync(command.Id, cancellationToken);
+        var product = await productRepository.GetByIdAsync(command.Id, ct);
         if (product == null)
         {
-            throw new NotFoundException("Product", command.Name);
+            throw new NotFoundException("Product", command.PublicId);
         }
 
         product.Update(command.Name, command.CategoryId, command.IsActive);
         
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return Unit.Value;
     }

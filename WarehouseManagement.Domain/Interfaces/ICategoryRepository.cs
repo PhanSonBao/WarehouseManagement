@@ -4,9 +4,8 @@ namespace WarehouseManagement.Domain.Interfaces;
 
 public interface ICategoryRepository
 {
-    Task<Category?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-    Task<Category?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Category>> GetListAsync(CancellationToken cancellationToken = default);
-    Task AddAsync(Category category, CancellationToken cancellationToken = default);
-    Task SaveChangesAsync(CancellationToken cancellationToken = default);
+    Task<Category?> GetByIdAsync(int id, CancellationToken ct = default);
+    Task<Category?> GetByPublicIdAsync(Guid publicId, CancellationToken ct = default);
+    Task<IEnumerable<Category>> GetListAsync(CancellationToken ct = default);
+    Task AddAsync(Category category, CancellationToken ct = default);
 }

@@ -15,9 +15,9 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, WarehouseDto>
         _warehouseRepository = warehouseRepository;
     }
 
-    public async Task<WarehouseDto> Handle(GetByIdQuery query, CancellationToken cancellationToken)
+    public async Task<WarehouseDto> Handle(GetByIdQuery query, CancellationToken ct)
     {
-        var warehouse = await _warehouseRepository.GetByPublicIdAsync(query.PublicId, cancellationToken);
+        var warehouse = await _warehouseRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (warehouse == null)
         {
             throw new NotFoundException(nameof(Warehouse), query.PublicId);

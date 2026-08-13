@@ -8,9 +8,9 @@ namespace WarehouseManagement.Application.Features.Warehouse.Update;
 public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateWarehouseCommand, Unit>
 {
-    public async Task<Unit> Handle(UpdateWarehouseCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateWarehouseCommand command, CancellationToken ct)
     {
-        var warehouse = await warehouseRepository.GetByIdAsync(command.Id, cancellationToken);
+        var warehouse = await warehouseRepository.GetByIdAsync(command.Id, ct);
         if (warehouse == null)
         {
             throw new NotFoundException("Warehouse", command.Name);
@@ -18,7 +18,7 @@ public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository, IU
         
         warehouse.Update(command.Name, command.Address, command.IsActive);
 
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(ct);
         
         return Unit.Value;
     }

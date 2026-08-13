@@ -7,20 +7,20 @@ namespace WarehouseManagement.Infrastructure.Repositories;
 
 public class WarehouseRepository(AppDbContext dbContext) : IWarehouseRepository
 {
-    public async Task<Warehouse?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Warehouse?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         return await dbContext.Warehouses
-            .FirstOrDefaultAsync(w => w.Id == id, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(w => w.Id == id, ct);
     }
 
-    public async Task<Warehouse?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default)
+    public async Task<Warehouse?> GetByPublicIdAsync(Guid publicId, CancellationToken ct = default)
     {
         return await dbContext.Warehouses
-            .FirstOrDefaultAsync(w => w.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(w => w.PublicId == publicId, ct);
     }
 
-    public async Task AddAsync(Warehouse warehouse, CancellationToken cancellationToken = default)
+    public async Task AddAsync(Warehouse warehouse, CancellationToken ct = default)
     {
-        await dbContext.Warehouses.AddAsync(warehouse, cancellationToken);
+        await dbContext.Warehouses.AddAsync(warehouse, ct);
     }
 }

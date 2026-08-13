@@ -6,11 +6,11 @@ namespace WarehouseManagement.Application.Features.Warehouse.Create;
 public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateWarehouseCommand, Guid>
 {
-    public async Task<Guid> Handle(CreateWarehouseCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateWarehouseCommand command, CancellationToken ct)
     {
         var warehouse = Domain.Entities.Warehouse.Create(command.Name);
-        await warehouseRepository.AddAsync(warehouse, cancellationToken);
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await warehouseRepository.AddAsync(warehouse, ct);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return warehouse.PublicId;
     }

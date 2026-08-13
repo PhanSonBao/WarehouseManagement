@@ -16,9 +16,9 @@ public class GetByIdHandler : IRequestHandler<GetByIdQuery, CategoryDto>
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<CategoryDto> Handle(GetByIdQuery query, CancellationToken cancellationToken)
+    public async Task<CategoryDto> Handle(GetByIdQuery query, CancellationToken ct)
     {
-        var category = await _categoryRepository.GetByPublicIdAsync(query.PublicId, cancellationToken);
+        var category = await _categoryRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (category == null)
         {
             throw new NotFoundException(nameof(Category), query.PublicId);

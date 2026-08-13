@@ -28,7 +28,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         // Name
         builder.Property(p => p.Name)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(250);
 
         // 1 Category - Many Products
         builder.HasOne(p => p.Category)

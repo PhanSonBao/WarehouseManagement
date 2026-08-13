@@ -2,7 +2,7 @@ using MediatR;
 
 namespace WarehouseManagement.Application.Features.Product.Update;
 
-public abstract record UpdateProductCommand(
+public record UpdateProductCommand(
     int Id,
     Guid PublicId,
     string Name,

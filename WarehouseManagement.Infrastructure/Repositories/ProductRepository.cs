@@ -7,32 +7,31 @@ namespace WarehouseManagement.Infrastructure.Repositories;
 
 public class ProductRepository(AppDbContext dbContext) : IProductRepository
 {
-    // Lấy Sản phẩm theo Id
-    public Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-        => dbContext.Products
+    public async Task<Product?> GetByIdAsync(int id, CancellationToken ct = default)
+        => await dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Variants)
-            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
 
-    public async Task<Product?> GetByPublicIdAsync(Guid publicId, CancellationToken cancellationToken = default)
+    public async Task<Product?> GetByPublicIdAsync(Guid publicId, CancellationToken ct = default)
     {
         return await dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Variants)
-            .FirstOrDefaultAsync(p => p.PublicId == publicId, cancellationToken);
+            .FirstOrDefaultAsync(p => p.PublicId == publicId, ct);
     }
 
     // Lấy tất cả sản phẩm có IsActive = true
-    public async Task<IEnumerable<Product>> GetListAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Product>> GetListAsync(CancellationToken ct = default)
         => await dbContext.Products
             .Include(p => p.Category)
             .Include(p => p.Variants)
             .Where(p => p.IsActive)
-            .ToListAsync(cancellationToken);
+            .ToListAsync(ct);
 
     // Thêm sản phẩm mới
-    public async Task AddAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task AddAsync(Product product, CancellationToken ct = default)
     {
-        await dbContext.Products.AddAsync(product, cancellationToken);
+        await dbContext.Products.AddAsync(product, ct);
     }
 }

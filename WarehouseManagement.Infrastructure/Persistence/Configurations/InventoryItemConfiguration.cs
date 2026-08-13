@@ -16,13 +16,12 @@ public class InventoryItemConfiguration : IEntityTypeConfiguration<InventoryItem
         // Primary key
         builder.HasKey(i => i.Id);
 
-        // Mỗi sản phẩm chỉ có 1 dòng tồn kho tại 1 kho duy nhất
-        builder.HasIndex(i => i.VariantId)
-            .IsUnique();
-        builder.HasIndex(i => i.WarehouseId)
+        // 1 unique stock row for 1 (variant, warehouse)
+        builder.HasIndex(i => new 
+            { i.VariantId, i.WarehouseId }) // Composite Index
             .IsUnique();
 
-        // Concurrency: Ngăn 2 request cùng lúc sửa tồn
+        // Concurrency: Prevent 2 request modified data simultaneously
         builder.Property(i => i.RowVersion)
             .IsRowVersion();
     }

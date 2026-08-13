@@ -12,6 +12,7 @@ internal static class ProductMapping
         Description: p.Description,
         CategoryId: p.CategoryId,
         BrandId: p.BrandId,
-        IsActive: p.IsActive
+        IsActive: p.IsActive,
+        Variants: new List<ProductVariantDto>()
     );
 }

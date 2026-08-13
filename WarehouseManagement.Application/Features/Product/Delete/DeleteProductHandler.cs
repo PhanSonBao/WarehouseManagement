@@ -7,9 +7,9 @@ namespace WarehouseManagement.Application.Features.Product.Delete;
 public class DeleteProductHandler (IProductRepository productRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteProductCommand, Unit>
 {
-    public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken ct)
     {
-        var product = await productRepository.GetByPublicIdAsync(command.PublicId, cancellationToken);
+        var product = await productRepository.GetByPublicIdAsync(command.PublicId, ct);
         if (product == null)
         {
             throw new NotFoundException("Product", command.PublicId);
@@ -17,7 +17,7 @@ public class DeleteProductHandler (IProductRepository productRepository, IUnitOf
 
         product.Deactive();
         
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return Unit.Value;
     }

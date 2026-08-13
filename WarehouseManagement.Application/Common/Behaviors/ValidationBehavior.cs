@@ -17,7 +17,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+        CancellationToken ct)
     {
         var validators = _validators.ToList();
         
@@ -31,7 +31,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         var results = await Task.WhenAll(validators
             .Select(v => v.ValidateAsync(
                 context,
-                cancellationToken)));
+                ct)));
 
         // Lọc ra CÁC lỗi (failures):
         var failures = results

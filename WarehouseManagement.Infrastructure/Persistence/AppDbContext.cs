@@ -27,34 +27,34 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
-        return await base.SaveChangesAsync(cancellationToken);
+        return await base.SaveChangesAsync(ct);
     }
 
-    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+    public async Task BeginTransactionAsync(CancellationToken ct = default)
     {
-        _currentTransaction = await Database.BeginTransactionAsync(cancellationToken);
+        _currentTransaction = await Database.BeginTransactionAsync(ct);
     }
 
-    public async Task CommitAsync(CancellationToken cancellationToken = default)
+    public async Task CommitAsync(CancellationToken ct = default)
     {
         if (_currentTransaction == null)
         {
             throw new InvalidOperationException("No active transaction.");
         }
 
-        await _currentTransaction.CommitAsync(cancellationToken);
+        await _currentTransaction.CommitAsync(ct);
         await _currentTransaction.DisposeAsync();
     }
 
-    public async Task RollbackAsync(CancellationToken cancellationToken = default)
+    public async Task RollbackAsync(CancellationToken ct = default)
     {
         if (_currentTransaction == null)
         {
             throw new InvalidOperationException("No active transaction.");
         }
-        await _currentTransaction.RollbackAsync(cancellationToken);
+        await _currentTransaction.RollbackAsync(ct);
         await _currentTransaction.DisposeAsync();
     }
 }

@@ -5,7 +5,8 @@ public record ProductDto(
     Guid PublicId,
     string Name,
     string? Description,
-    int? CategoryId,
-    int? BrandId,
-    bool IsActive
+    int CategoryId,
+    int BrandId,
+    bool IsActive,
+    List<ProductVariantDto> Variants
 );
