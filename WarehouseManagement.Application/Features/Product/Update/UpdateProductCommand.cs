@@ -1,4 +1,5 @@
 using MediatR;
+using WarehouseManagement.Application.Common.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.Update;
 
@@ -8,4 +9,4 @@ public record UpdateProductCommand(
     string Name,
     int CategoryId,
     bool IsActive
-) : IRequest<Unit>;
+) : ICommand<Unit>;

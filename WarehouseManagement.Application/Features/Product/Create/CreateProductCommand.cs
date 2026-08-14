@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using WarehouseManagement.Application.Common.Interfaces;
 using WarehouseManagement.Application.Features.ProductVariant.Create;
 
 namespace WarehouseManagement.Application.Features.Product.Create;
@@ -10,4 +10,4 @@ public sealed record CreateProductCommand(
     int BrandId,
     bool IsActive,
     List<CreateVariantCommand> Variants
-) : IRequest<Guid>;
+) : ICommand<Guid>;

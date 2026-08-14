@@ -46,6 +46,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         await _currentTransaction.CommitAsync(ct);
         await _currentTransaction.DisposeAsync();
+        _currentTransaction = null;
     }
 
     public async Task RollbackAsync(CancellationToken ct = default)

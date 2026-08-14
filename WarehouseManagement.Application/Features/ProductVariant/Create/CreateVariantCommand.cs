@@ -1,4 +1,5 @@
 using MediatR;
+using WarehouseManagement.Application.Common.Interfaces;
 
 namespace WarehouseManagement.Application.Features.ProductVariant.Create;
 
@@ -9,4 +10,4 @@ public sealed record CreateVariantCommand(
     long SalePrice,
     string? Barcode,
     string? Sku
-) : IRequest<Guid>; 
+) : ICommand<Guid>;
