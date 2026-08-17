@@ -10,7 +10,6 @@ public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository, IU
     {
         var warehouse = Domain.Entities.Warehouse.Create(command.Name);
         await warehouseRepository.AddAsync(warehouse, ct);
-        await unitOfWork.SaveChangesAsync(ct);
 
         return warehouse.PublicId;
     }

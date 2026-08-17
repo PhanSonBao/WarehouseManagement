@@ -12,7 +12,6 @@ public class CreateCategoryHandler(ICategoryRepository categoryRepsository, IUni
         var category = Domain.Entities.Category.CreateCategory(command.Name);
 
         await categoryRepsository.AddAsync(category, ct);
-        await unitOfWork.SaveChangesAsync(ct);
 
         return category.PublicId;
     }

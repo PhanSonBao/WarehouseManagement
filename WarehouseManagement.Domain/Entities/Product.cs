@@ -18,7 +18,7 @@ public class Product
     #region Foreign Keys
     public Category Category { get; private set; }
     public Brand Brands { get; private set; }
-    public ICollection<ProductVariant> Variants { get; private set; }
+    public ICollection<ProductVariant> Variants { get; private set; } = new List<ProductVariant>();
     #endregion
 
     // Private Constructor
@@ -53,7 +53,7 @@ public class Product
     }
 
     // Soft Delete Product
-    public void Deactive()
+    public void Deactivate()
     {
         IsActive = false;
     }

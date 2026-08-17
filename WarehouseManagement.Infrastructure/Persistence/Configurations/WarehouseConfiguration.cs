@@ -24,5 +24,10 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
 
         builder.Property(x => x.Address)
             .HasMaxLength(500);
+        
+        builder.HasMany(x => x.Locations)
+            .WithOne(x => x.Warehouse)
+            .HasForeignKey(x => x.WarehouseId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

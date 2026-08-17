@@ -15,10 +15,8 @@ public class DeleteProductHandler (IProductRepository productRepository, IUnitOf
             throw new NotFoundException("Product", command.PublicId);
         }
 
-        product.Deactive();
+        product.Deactivate();
         
-        await unitOfWork.SaveChangesAsync(ct);
-
         return Unit.Value;
     }
 }

@@ -17,8 +17,6 @@ public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository, IU
         }
         
         warehouse.Update(command.Name, command.Address, command.IsActive);
-
-        await unitOfWork.SaveChangesAsync(ct);
         
         return Unit.Value;
     }

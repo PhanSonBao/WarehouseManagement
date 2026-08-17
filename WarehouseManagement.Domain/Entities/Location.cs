@@ -8,7 +8,6 @@ public class Location
     public Guid PublicId { get; private set; }
     public int WarehouseId { get; private set; }
     public string Name { get; private set; }
-    public string? Address { get; private set; }
     public bool IsActive { get; private set; }
     
     #endregion

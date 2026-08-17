@@ -17,8 +17,6 @@ public class UpdateProductHandler(IProductRepository productRepository, IUnitOfW
 
         product.Update(command.Name, command.CategoryId, command.IsActive);
         
-        await unitOfWork.SaveChangesAsync(ct);
-
         return Unit.Value;
     }
 }

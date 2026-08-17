@@ -7,6 +7,7 @@ internal static class ProductVariantMapping
 {
     internal static ProductVariantDto ToDto(this ProductVariant pv) => new(
         PublicId: pv.PublicId,
+        Name: pv.Name,
         Sku: pv.Sku,
         CostPrice: pv.CostPrice,
         SalePrice: pv.SalePrice,

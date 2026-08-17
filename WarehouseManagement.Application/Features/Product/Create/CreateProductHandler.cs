@@ -23,7 +23,6 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
         {
             var variant = Domain.Entities.ProductVariant.CreateVariant(
                 item.Name,
-                item.ProductId,
                 item.CostPrice,
                 item.SalePrice,
                 item.Barcode,
@@ -35,8 +34,6 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
 
         // Gọi repository.AddAsync(product, ct)
         await productRepository.AddAsync(product, ct);
-        // Gọi unitOfWork.SaveChangesAsync(ct)
-        await unitOfWork.SaveChangesAsync(ct);
 
         return product.PublicId;
     }

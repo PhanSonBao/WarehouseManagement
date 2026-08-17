@@ -59,7 +59,7 @@ public class ProductController(ISender sender) : ControllerBase
     }
     
     // DELETE api/products/{publicId}
-    [HttpPatch]
+    [HttpPost("{publicId:guid}/deactivate")]
     public async Task<IActionResult> Delete(Guid publicId)
     {
         var command = new DeleteProductCommand(publicId);

@@ -24,7 +24,7 @@ public class ProductVariant
     private ProductVariant() { }
     
     // Factory Method
-    public static ProductVariant CreateVariant(string name, int productId, long costPrice, long salePrice, string? barcode,
+    public static ProductVariant CreateVariant(string name, long costPrice, long salePrice, string? barcode,
         string? sku)
     {
         if (name == null)
@@ -36,7 +36,6 @@ public class ProductVariant
         {
             PublicId = Guid.NewGuid(),
             Name = name,
-            ProductId = productId,
             CostPrice = costPrice,
             SalePrice = salePrice,
             Barcode = barcode,

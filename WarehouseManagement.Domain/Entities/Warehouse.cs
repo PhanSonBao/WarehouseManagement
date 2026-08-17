@@ -20,7 +20,6 @@ public class Warehouse
     #region Foreign key
 
     public Brand Brand { get; private set; }
-    public Location Location { get; private set; }
 
     #endregion
 
