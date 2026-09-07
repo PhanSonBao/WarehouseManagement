@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Infrastructure", "WarehouseManagement.Infrastructure\WarehouseManagement.Infrastructure.csproj", "{88F59E05-DEBA-47F4-8523-DED5D8E9FF95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManagement.Tests", "WarehouseManagement.Tests\WarehouseManagement.Tests.csproj", "{C6531007-22F7-4AA1-BF5B-672721F83AE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{88F59E05-DEBA-47F4-8523-DED5D8E9FF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88F59E05-DEBA-47F4-8523-DED5D8E9FF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88F59E05-DEBA-47F4-8523-DED5D8E9FF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6531007-22F7-4AA1-BF5B-672721F83AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6531007-22F7-4AA1-BF5B-672721F83AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6531007-22F7-4AA1-BF5B-672721F83AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6531007-22F7-4AA1-BF5B-672721F83AE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

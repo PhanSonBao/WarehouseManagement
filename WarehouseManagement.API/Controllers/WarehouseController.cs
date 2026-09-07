@@ -12,7 +12,7 @@ public class WarehouseController(ISender sender) : ControllerBase
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
     {
-        var query = new GetByIdQuery(publicId);
+        var query = new GetWarehouseByIdQuery(publicId);
         var result = await sender.Send(query);
 
         return Ok(result);

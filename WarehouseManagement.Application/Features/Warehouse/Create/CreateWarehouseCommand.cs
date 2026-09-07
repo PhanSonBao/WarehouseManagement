@@ -1,4 +1,3 @@
-using MediatR;
 using WarehouseManagement.Application.Common.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Warehouse.Create;

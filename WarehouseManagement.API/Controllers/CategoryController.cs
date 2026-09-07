@@ -13,8 +13,8 @@ public class CategoryController(ISender sender) : ControllerBase
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
     {
-        // Create GetByIdQuery
-        var query = new GetByIdQuery(publicId);
+        // Create GetCategoryByIdQuery
+        var query = new GetCategoryByIdQuery(publicId);
         var result = await sender.Send(query);
 
         return Ok(result);

@@ -17,7 +17,7 @@ public class ProductController(ISender sender) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
-        var query = new GetListQuery();
+        var query = new GetProductListQuery();
         var result = await sender.Send(query);
 
         return Ok(result);
@@ -27,8 +27,8 @@ public class ProductController(ISender sender) : ControllerBase
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
     {
-        // Tạo GetByIdQuery(id)
-        var query = new GetByIdQuery(publicId);
+        // Tạo GetCategoryByIdQuery(id)
+        var query = new GetProductByIdQuery(publicId);
 
         // Gọi _sender.Send(query)
         var result = await sender.Send(query);

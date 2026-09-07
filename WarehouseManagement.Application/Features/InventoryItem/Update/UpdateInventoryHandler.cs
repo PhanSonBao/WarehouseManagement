@@ -3,7 +3,7 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.InventoryItem.Update;
 
-public class UpdateInventoryHandler(IInventoryRepository inventoryRepository, IUnitOfWork unitOfwork)
+public class UpdateInventoryHandler(IInventoryRepository inventoryRepository)
     : IRequestHandler<UpdateInventoryCommand, Guid>
 {
     /// <summary>

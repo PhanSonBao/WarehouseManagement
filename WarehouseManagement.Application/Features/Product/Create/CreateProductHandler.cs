@@ -4,13 +4,11 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.Product.Create;
 
 // Logic create product and saving to DB are implemented here
-public class CreateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateProductCommand, Guid>
+public class CreateProductHandler(IProductRepository productRepository) : IRequestHandler<CreateProductCommand, Guid>
 {
     public async Task<Guid> Handle(CreateProductCommand command, CancellationToken ct)
     {
-        // Gọi Product.Create(...) với các giá trị từ productCommand
-        // (Factory method đã viết trong Domain)
+        // Create Product
         var product = Domain.Entities.Product.CreateProduct(
             command.Name,
             command.Description,
@@ -19,6 +17,7 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
             command.IsActive
         );
 
+        // INSERT Variant
         foreach (var item in command.Variants)
         {
             var variant = Domain.Entities.ProductVariant.CreateVariant(
@@ -28,11 +27,11 @@ public class CreateProductHandler(IProductRepository productRepository, IUnitOfW
                 item.Barcode,
                 item.Sku
             );
-            
+
             product.AddVariant(variant);
         }
 
-        // Gọi repository.AddAsync(product, ct)
+        // Call repository.AddAsync(product, ct)
         await productRepository.AddAsync(product, ct);
 
         return product.PublicId;

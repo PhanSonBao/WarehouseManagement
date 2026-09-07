@@ -1,11 +1,10 @@
 using MediatR;
 using WarehouseManagement.Application.Common.Exceptions;
-using WarehouseManagement.Domain.Exceptions;
 using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Warehouse.Update;
 
-public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
+public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository)
     : IRequestHandler<UpdateWarehouseCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateWarehouseCommand command, CancellationToken ct)

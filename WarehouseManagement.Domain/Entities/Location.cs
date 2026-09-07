@@ -12,7 +12,7 @@ public class Location
     
     #endregion
 
-    #region Foreign Keys
+    #region Foreign Keys 
 
     public  Warehouse Warehouse { get; private set; }
 
@@ -22,12 +22,13 @@ public class Location
     private Location() {}
     
     // Factory method
-    public static Location Create(int warehouseId)
+    public static Location Create(int warehouseId, string name)
     {
         return new Location
         {
             PublicId = Guid.NewGuid(),
             WarehouseId = warehouseId,
+            Name = name,
             IsActive = true,
         };
     }

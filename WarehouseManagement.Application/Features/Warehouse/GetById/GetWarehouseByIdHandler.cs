@@ -6,16 +6,16 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Warehouse.GetById;
 
-public class GetByIdHandler : IRequestHandler<GetByIdQuery, WarehouseDto>
+public class GetWarehouseByIdHandler : IRequestHandler<GetWarehouseByIdQuery, WarehouseDto>
 {
     private readonly IWarehouseRepository _warehouseRepository;
 
-    public GetByIdHandler(IWarehouseRepository warehouseRepository)
+    public GetWarehouseByIdHandler(IWarehouseRepository warehouseRepository)
     {
         _warehouseRepository = warehouseRepository;
     }
 
-    public async Task<WarehouseDto> Handle(GetByIdQuery query, CancellationToken ct)
+    public async Task<WarehouseDto> Handle(GetWarehouseByIdQuery query, CancellationToken ct)
     {
         var warehouse = await _warehouseRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (warehouse == null)

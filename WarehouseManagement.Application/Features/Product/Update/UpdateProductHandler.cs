@@ -4,12 +4,12 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.Update;
 
-public class UpdateProductHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+public class UpdateProductHandler(IProductRepository productRepository)
     : IRequestHandler<UpdateProductCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken ct)
     {
-        var product = await productRepository.GetByIdAsync(command.Id, ct);
+        var product = await productRepository.GetByPublicIdAsync(command.PublicId, ct);
         if (product == null)
         {
             throw new NotFoundException("Product", command.PublicId);

@@ -4,7 +4,7 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.Delete;
 
-public class DeleteProductHandler (IProductRepository productRepository, IUnitOfWork unitOfWork)
+public class DeleteProductHandler (IProductRepository productRepository)
     : IRequestHandler<DeleteProductCommand, Unit>
 {
     public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken ct)

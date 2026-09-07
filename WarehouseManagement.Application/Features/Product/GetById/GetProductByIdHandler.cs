@@ -6,18 +6,18 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Product.GetById;
 
-public class GetByIdHandler : IRequestHandler<GetByIdQuery, ProductDto>
+public class GetProductByIdHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
 {
     // 1. Create private readonly field for IProductRepository
     private readonly IProductRepository _productRepository;
 
     // 2. Inject IProductRepository into the constructor
-    public GetByIdHandler(IProductRepository productRepository)
+    public GetProductByIdHandler(IProductRepository productRepository)
     {
         _productRepository = productRepository;
     }
 
-    public async Task<ProductDto> Handle(GetByIdQuery query, CancellationToken ct)
+    public async Task<ProductDto> Handle(GetProductByIdQuery query, CancellationToken ct)
     {
         var product = await _productRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (product == null)

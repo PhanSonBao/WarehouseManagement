@@ -6,17 +6,17 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Category.GetById;
 
-public class GetByIdHandler : IRequestHandler<GetByIdQuery, CategoryDto>
+public class GetCategoryByIdHandler : IRequestHandler<GetCategoryByIdQuery, CategoryDto>
 {
     private readonly ICategoryRepository _categoryRepository;
 
     // Receive ICateogoryRepository in constructor
-    public GetByIdHandler(ICategoryRepository categoryRepository)
+    public GetCategoryByIdHandler(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<CategoryDto> Handle(GetByIdQuery query, CancellationToken ct)
+    public async Task<CategoryDto> Handle(GetCategoryByIdQuery query, CancellationToken ct)
     {
         var category = await _categoryRepository.GetByPublicIdAsync(query.PublicId, ct);
         if (category == null)

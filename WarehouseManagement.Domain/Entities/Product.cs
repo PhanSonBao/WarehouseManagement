@@ -16,13 +16,17 @@ public class Product
     #endregion
 
     #region Foreign Keys
-    public Category Category { get; private set; }
-    public Brand Brands { get; private set; }
+
+    public Category Category { get; private set; } = null!;
+    public Brand? Brands { get; private set; }
     public ICollection<ProductVariant> Variants { get; private set; } = new List<ProductVariant>();
     #endregion
 
     // Private Constructor
-    private Product() { }
+    private Product(string name)
+    {
+        Name = name;
+    }
 
     // Factory Method
     public static Product CreateProduct(string name, string? description, int categoryId, int brandId, bool isActive)
@@ -33,7 +37,7 @@ public class Product
             throw new DomainException("Name cannot be null");
         }
 
-        return new Product
+        return new Product(name)
         {
             PublicId = Guid.NewGuid(),
             Name = name,

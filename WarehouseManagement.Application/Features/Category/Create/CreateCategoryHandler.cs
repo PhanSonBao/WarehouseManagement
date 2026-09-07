@@ -3,7 +3,7 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Category.Create;
 
-public class CreateCategoryHandler(ICategoryRepository categoryRepsository, IUnitOfWork unitOfWork)
+public class CreateCategoryHandler(ICategoryRepository categoryRepsository)
     : IRequestHandler<CreateCategoryCommand, Guid>
 {
     public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken ct)

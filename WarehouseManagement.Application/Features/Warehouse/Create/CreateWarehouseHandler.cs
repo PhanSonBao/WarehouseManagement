@@ -3,7 +3,7 @@ using WarehouseManagement.Domain.Interfaces;
 
 namespace WarehouseManagement.Application.Features.Warehouse.Create;
 
-public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
+public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository)
     : IRequestHandler<CreateWarehouseCommand, Guid>
 {
     public async Task<Guid> Handle(CreateWarehouseCommand command, CancellationToken ct)

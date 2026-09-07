@@ -37,6 +37,7 @@ public class InventoryItem
         
         return new InventoryItem
         {
+            PublicId = Guid.NewGuid(),
             VariantId =  variantId,
             WarehouseId =   warehouseId,
             LowStockThreshold =  lowStockThreshold,
