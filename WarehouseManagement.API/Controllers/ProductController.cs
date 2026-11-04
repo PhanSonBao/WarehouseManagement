@@ -1,19 +1,25 @@
+using System.Text.Json;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WarehouseManagement.Application.DTO;
 using WarehouseManagement.Application.Features.Product.Create;
 using WarehouseManagement.Application.Features.Product.Delete;
 using WarehouseManagement.Application.Features.Product.GetById;
 using WarehouseManagement.Application.Features.Product.GetList;
 using WarehouseManagement.Application.Features.Product.Update;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace WarehouseManagement.API.Controllers;
 
 [ApiController]
 [Route(("api/[controller]"))]
-// Inject ISender (MediatR) qua constructor
-public class ProductController(ISender sender) : ControllerBase
+// Inject ISender (MediatR) via constructor
+public class ProductController(ISender sender, IDistributedCache cache, ILogger<ProductController> logger) : ControllerBase
 {
-    // GET api/products
+    // Create Unique Key for every Product
+    private static string GetCacheKey(Guid publicId) => $"product:by-id:{publicId:N}";
+    
+    // Get list product
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
@@ -23,21 +29,42 @@ public class ProductController(ISender sender) : ControllerBase
         return Ok(result);
     }
 
-    // GET api/products/{id}
+    // Get product detail
     [HttpGet("{publicId:guid}")]
-    public async Task<IActionResult> GetById(Guid publicId)
+    public async Task<IActionResult> GetById(Guid publicId, CancellationToken ct)
     {
-        // Tạo GetCategoryByIdQuery(id)
-        var query = new GetProductByIdQuery(publicId);
-
-        // Gọi _sender.Send(query)
-        var result = await sender.Send(query);
-
-        // If null -> Handler throw NotFoudnException -> Middleware return 404
-        // If not null: return Ok(result)
+        // Redis key
+        var cacheKey = GetCacheKey(publicId);
+        var cachedJson = await cache.GetStringAsync(cacheKey);
+        
+        // Cache HIT
+        if (cachedJson is not null)
+        {
+            var cachedProduct = JsonSerializer.Deserialize<ProductDto>(cachedJson);
+            if (cachedProduct is not null)
+            {
+                logger.LogInformation("CACHE HIT: {Key}", cacheKey);
+                return Ok(cachedProduct);
+            }
+        }
+        // Cache MISS
+        logger.LogInformation("CACHE MISS: {Key}", cacheKey);
+        
+        var query = new GetProductByIdQuery(publicId); // Tạo GetCategoryByIdQuery(id)
+        var result = await sender.Send(query); // Gọi _sender.Send(query)
+        var json = JsonSerializer.Serialize(result);
+        
+        // Save Redis TTL 2 min
+        var options = new DistributedCacheEntryOptions()
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2)
+        };
+        await cache.SetStringAsync(cacheKey, json, options, ct);
+        
         return Ok(result);
     }
 
+    // Crete new product
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCommand create)
     {
@@ -48,7 +75,7 @@ public class ProductController(ISender sender) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { publicId }, new { publicId });
     }
 
-    // PUT api/products/{publicId}
+    // Update product
     [HttpPut("{publicId:guid}")]
     public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand update)
     {
@@ -58,7 +85,7 @@ public class ProductController(ISender sender) : ControllerBase
         return NoContent();
     }
     
-    // DELETE api/products/{publicId}
+    // Deactivate product
     [HttpPost("{publicId:guid}/deactivate")]
     public async Task<IActionResult> Delete(Guid publicId)
     {
