@@ -6,8 +6,8 @@ namespace WarehouseManagement.Application.Features.Product.Create;
 public sealed record CreateProductCommand(
     string Name,
     string? Description,
-    int CategoryId,
-    int BrandId,
+    Guid CategoryId,
+    Guid BrandId,
     bool IsActive,
     List<CreateVariantCommand> Variants
 ) : ICommand<Guid>;

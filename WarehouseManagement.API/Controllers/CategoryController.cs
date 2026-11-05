@@ -9,7 +9,7 @@ namespace WarehouseManagement.API.Controllers;
 [Route("api/[controller]")]
 public class CategoryController(ISender sender) : ControllerBase
 {
-    // GET /api/categories/{id}
+    // Get Category detail
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId)
     {
@@ -20,7 +20,7 @@ public class CategoryController(ISender sender) : ControllerBase
         return Ok(result);
     }
     
-    // POST /api/categories
+    // Create Category
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
     {

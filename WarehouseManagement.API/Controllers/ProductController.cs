@@ -19,7 +19,7 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
     // Create Unique Key for every Product
     private static string GetCacheKey(Guid publicId) => $"product:by-id:{publicId:N}";
     
-    // Get list product
+    // Get list Product
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
@@ -29,7 +29,7 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
         return Ok(result);
     }
 
-    // Get product detail
+    // Get Product detail
     [HttpGet("{publicId:guid}")]
     public async Task<IActionResult> GetById(Guid publicId, CancellationToken ct)
     {
@@ -64,33 +64,37 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
         return Ok(result);
     }
 
-    // Crete new product
+    // Crete new Product
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCommand create)
     {
         // Gọi _sender.Send(productCommand)
         var publicId = await sender.Send(create);
-
         // Trả về CreatedAtAction trỏ tới GetById, kèm id vừa tạo
         return CreatedAtAction(nameof(GetById), new { publicId }, new { publicId });
     }
 
-    // Update product
+    // Update Product
     [HttpPut("{publicId:guid}")]
     public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand update)
     {
         var command = update with { PublicId = publicId };
         await sender.Send(command);
         
+        // Delete cache
+        await cache.RemoveAsync(GetCacheKey(publicId));
+        
         return NoContent();
     }
     
-    // Deactivate product
+    // Deactivate Product
     [HttpPost("{publicId:guid}/deactivate")]
     public async Task<IActionResult> Delete(Guid publicId)
     {
         var command = new DeleteProductCommand(publicId);
         await sender.Send(command);
+        // Delete cache
+        await cache.RemoveAsync(GetCacheKey(publicId));
         
         return NoContent();
     }
