@@ -17,7 +17,7 @@ namespace WarehouseManagement.API.Controllers;
 public class ProductController(ISender sender, IDistributedCache cache, ILogger<ProductController> logger) : ControllerBase
 {
     // Create Unique Key for every Product
-    private static string GetCacheKey(Guid publicId) => $"product:by-id:{publicId:N}";
+    private static string GetCacheKey(string publicId) => $"product:by-id:{publicId}";
     
     // Get list Product
     [HttpGet]
@@ -30,8 +30,8 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
     }
 
     // Get Product detail
-    [HttpGet("{publicId:guid}")]
-    public async Task<IActionResult> GetById(Guid publicId, CancellationToken ct)
+    [HttpGet("{publicId}")]
+    public async Task<IActionResult> GetById(string publicId, CancellationToken ct)
     {
         // Redis key
         var cacheKey = GetCacheKey(publicId);
@@ -75,8 +75,8 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
     }
 
     // Update Product
-    [HttpPut("{publicId:guid}")]
-    public async Task<IActionResult> Update(Guid publicId, [FromBody] UpdateProductCommand update)
+    [HttpPut("{publicId}")]
+    public async Task<IActionResult> Update(string publicId, [FromBody] UpdateProductCommand update)
     {
         var command = update with { PublicId = publicId };
         await sender.Send(command);
@@ -88,8 +88,8 @@ public class ProductController(ISender sender, IDistributedCache cache, ILogger<
     }
     
     // Deactivate Product
-    [HttpPost("{publicId:guid}/deactivate")]
-    public async Task<IActionResult> Delete(Guid publicId)
+    [HttpPost("{publicId}/deactivate")]
+    public async Task<IActionResult> Delete(string publicId)
     {
         var command = new DeleteProductCommand(publicId);
         await sender.Send(command);

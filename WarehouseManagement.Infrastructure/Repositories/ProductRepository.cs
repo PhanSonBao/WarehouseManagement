@@ -13,7 +13,7 @@ public class ProductRepository(AppDbContext dbContext) : IProductRepository
             .Include(p => p.Variants)
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 
-    public async Task<Product?> GetByPublicIdAsync(Guid publicId, CancellationToken ct = default)
+    public async Task<Product?> GetByPublicIdAsync(string publicId, CancellationToken ct = default)
     {
         return await dbContext.Products
             .Include(p => p.Category)

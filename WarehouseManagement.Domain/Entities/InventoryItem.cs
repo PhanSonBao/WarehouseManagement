@@ -6,7 +6,7 @@ public class InventoryItem
 {
     #region Properties
     public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string PublicId { get; private set; }
     public int VariantId { get; private set; }
     public int WarehouseId { get; private set; }
     public int Quantity { get; private set; }
@@ -24,7 +24,7 @@ public class InventoryItem
     
     // Factory Method
     /// <summary>
-    /// Create new
+    /// Create new Item
     /// </summary>
     public static InventoryItem Create(int variantId, int warehouseId, int lowStockThreshold)
     {
@@ -37,7 +37,7 @@ public class InventoryItem
         
         return new InventoryItem
         {
-            PublicId = Guid.NewGuid(),
+            PublicId = Guid.NewGuid().ToString(),
             VariantId =  variantId,
             WarehouseId =   warehouseId,
             LowStockThreshold =  lowStockThreshold,

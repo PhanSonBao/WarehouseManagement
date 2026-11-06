@@ -7,7 +7,7 @@ public class ProductVariant
 {
     #region Properties
     public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string PublicId { get; private set; }
     public string Name { get; private set; }
     public int ProductId { get; private set; }
     public long CostPrice { get; private set; }
@@ -34,7 +34,7 @@ public class ProductVariant
         
         return new ProductVariant
         {
-            PublicId = Guid.NewGuid(),
+            PublicId = Guid.NewGuid().ToString(),
             Name = name,
             CostPrice = costPrice,
             SalePrice = salePrice,

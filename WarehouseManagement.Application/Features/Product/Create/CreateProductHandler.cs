@@ -4,9 +4,9 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.Product.Create;
 
 // Logic create product and saving to DB are implemented here
-public class CreateProductHandler(IProductRepository productRepository) : IRequestHandler<CreateProductCommand, Guid>
+public class CreateProductHandler(IProductRepository productRepository) : IRequestHandler<CreateProductCommand, string>
 {
-    public async Task<Guid> Handle(CreateProductCommand command, CancellationToken ct)
+    public async Task<string> Handle(CreateProductCommand command, CancellationToken ct)
     {
         // Create Product
         var product = Domain.Entities.Product.CreateProduct(

@@ -18,7 +18,7 @@ public class CategoryRepository : ICategoryRepository
     }
 
     // Lấy chi tiết danh mục theo publicId
-    public async Task<Category?> GetByPublicIdAsync(Guid publicId, CancellationToken ct = default)
+    public async Task<Category?> GetByPublicIdAsync(string publicId, CancellationToken ct = default)
     {
         return await _dbContext.Categories
             .FirstOrDefaultAsync(c => c.PublicId == publicId, ct);

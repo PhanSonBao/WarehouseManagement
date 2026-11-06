@@ -6,8 +6,7 @@ public class Warehouse
 {
     #region Properties
 
-    public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string WarehouseId { get; private set; }
     public int LocationId { get; private set; }
     public int BrandId { get; private set; }
     public string Name { get; private set; }
@@ -39,7 +38,7 @@ public class Warehouse
         
         return new Warehouse
         {
-            PublicId = Guid.NewGuid(),
+            WarehouseId = Guid.NewGuid().ToString(),
             Name = name,
             IsActive = true,
         };

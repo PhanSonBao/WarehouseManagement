@@ -11,4 +11,4 @@ public record UpdateInventoryCommand(
     string Note,
     int LowStockThreshold,
     Domain.Enums.MovementType MovementType
-) : ICommand<Guid>;
+) : ICommand<string>;

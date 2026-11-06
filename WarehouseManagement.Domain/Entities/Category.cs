@@ -7,7 +7,7 @@ public class Category
     #region Properties
 
     public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string PublicId { get; private set; }
     public string Name { get; private set; }
 
     #endregion
@@ -30,7 +30,7 @@ public class Category
 
         return new Category
         {
-            PublicId = Guid.NewGuid(),
+            PublicId = Guid.NewGuid().ToString(),
             Name = name,
         };
     }

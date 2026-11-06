@@ -2,7 +2,7 @@ namespace WarehouseManagement.Application.DTO;
 
 public record ProductVariantDto
 (
-    Guid PublicId,
+    string PublicId,
     string Name,
     long CostPrice,
     long SalePrice,

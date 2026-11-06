@@ -4,13 +4,13 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.Warehouse.Create;
 
 public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository)
-    : IRequestHandler<CreateWarehouseCommand, Guid>
+    : IRequestHandler<CreateWarehouseCommand, string>
 {
-    public async Task<Guid> Handle(CreateWarehouseCommand command, CancellationToken ct)
+    public async Task<string> Handle(CreateWarehouseCommand command, CancellationToken ct)
     {
         var warehouse = Domain.Entities.Warehouse.Create(command.Name);
         await warehouseRepository.AddAsync(warehouse, ct);
 
-        return warehouse.PublicId;
+        return warehouse.WarehouseId;
     }
 }

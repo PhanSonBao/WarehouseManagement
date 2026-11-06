@@ -7,7 +7,7 @@ public class StockMovement
     #region Properties
 
     public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string PublicId { get; private set; }
     public int ProductVariantId { get; private set; }
     public int WarehouseId { get; private set; }
     public string Name { get; private set; }
@@ -35,7 +35,7 @@ public class StockMovement
     {
         return new StockMovement
         {
-            PublicId = Guid.NewGuid(),
+            PublicId = Guid.NewGuid().ToString(),
             ProductVariantId = productVariantId,
             WarehouseId = warehouseId,
             Name = name,

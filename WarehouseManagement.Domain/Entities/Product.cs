@@ -7,7 +7,7 @@ public class Product
     // Data Annotation
     #region Properties
     public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
+    public string PublicId { get; private set; }
     public string Name { get; private set; }
     public string? Description { get; private set; }
     public int CategoryId { get; private set; }
@@ -39,7 +39,7 @@ public class Product
 
         return new Product(name)
         {
-            PublicId = Guid.NewGuid(),
+            PublicId = Guid.NewGuid().ToString(),
             Name = name,
             Description = description,
             CategoryId = categoryId,

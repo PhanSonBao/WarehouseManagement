@@ -12,10 +12,8 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.ToTable("Warehouse");
         
         // Primary key
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id);
-
-        builder.Property(x => x.PublicId)
+        builder.HasKey(x => x.WarehouseId);
+        builder.Property(x => x.WarehouseId)
             .IsRequired();
         
         builder.Property(x => x.Name)

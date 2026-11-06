@@ -17,10 +17,10 @@ public class GetWarehouseByIdHandler : IRequestHandler<GetWarehouseByIdQuery, Wa
 
     public async Task<WarehouseDto> Handle(GetWarehouseByIdQuery query, CancellationToken ct)
     {
-        var warehouse = await _warehouseRepository.GetByPublicIdAsync(query.PublicId, ct);
+        var warehouse = await _warehouseRepository.GetByIdAsync(query.WarehouseId, ct);
         if (warehouse == null)
         {
-            throw new NotFoundException(nameof(Warehouse), query.PublicId);
+            throw new NotFoundException(nameof(Warehouse), query.WarehouseId);
         }
 
         return warehouse.ToDto();

@@ -9,7 +9,7 @@ public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository)
 {
     public async Task<Unit> Handle(UpdateWarehouseCommand command, CancellationToken ct)
     {
-        var warehouse = await warehouseRepository.GetByIdAsync(command.Id, ct);
+        var warehouse = await warehouseRepository.GetByIdAsync(command.WarehouseId, ct);
         if (warehouse == null)
         {
             throw new NotFoundException("Warehouse", command.Name);

@@ -4,7 +4,7 @@ using WarehouseManagement.Application.Common.Interfaces;
 namespace WarehouseManagement.Application.Features.Product.Update;
 
 public record UpdateProductCommand(
-    Guid PublicId,
+    string PublicId,
     string Name,
     int CategoryId,
     bool IsActive

@@ -1,8 +1,7 @@
 namespace WarehouseManagement.Application.DTO;
 
 public record WarehouseDto(
-    int Id,
-    Guid PublicId,
+    string WarehouseId,
     string Name,
     string? Address,
     bool IsActive);

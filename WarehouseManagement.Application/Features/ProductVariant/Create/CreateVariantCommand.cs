@@ -8,4 +8,4 @@ public sealed record CreateVariantCommand(
     long SalePrice,
     string? Barcode,
     string? Sku
-) : ICommand<Guid>;
+) : ICommand<string>;

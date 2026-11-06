@@ -4,9 +4,8 @@ public class Location
 {
     #region Properties
 
-    public int Id { get; private set; }
-    public Guid PublicId { get; private set; }
-    public int WarehouseId { get; private set; }
+    public string LocationId { get; private set; }
+    public string WarehouseId { get; private set; }
     public string Name { get; private set; }
     public bool IsActive { get; private set; }
     
@@ -22,11 +21,11 @@ public class Location
     private Location() {}
     
     // Factory method
-    public static Location Create(int warehouseId, string name)
+    public static Location Create(string warehouseId, string name)
     {
         return new Location
         {
-            PublicId = Guid.NewGuid(),
+            LocationId = Guid.NewGuid().ToString(),
             WarehouseId = warehouseId,
             Name = name,
             IsActive = true,

@@ -10,8 +10,8 @@ namespace WarehouseManagement.API.Controllers;
 public class CategoryController(ISender sender) : ControllerBase
 {
     // Get Category detail
-    [HttpGet("{publicId:guid}")]
-    public async Task<IActionResult> GetById(Guid publicId)
+    [HttpGet("{publicId}")]
+    public async Task<IActionResult> GetById(string publicId)
     {
         // Create GetCategoryByIdQuery
         var query = new GetCategoryByIdQuery(publicId);

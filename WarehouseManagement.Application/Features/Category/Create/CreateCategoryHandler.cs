@@ -4,9 +4,9 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.Category.Create;
 
 public class CreateCategoryHandler(ICategoryRepository categoryRepsository)
-    : IRequestHandler<CreateCategoryCommand, Guid>
+    : IRequestHandler<CreateCategoryCommand, string>
 {
-    public async Task<Guid> Handle(CreateCategoryCommand command, CancellationToken ct)
+    public async Task<string> Handle(CreateCategoryCommand command, CancellationToken ct)
     {
         // Call Category.Create from categoryCommand
         var category = Domain.Entities.Category.CreateCategory(command.Name);

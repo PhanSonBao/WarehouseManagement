@@ -4,12 +4,12 @@ using WarehouseManagement.Domain.Interfaces;
 namespace WarehouseManagement.Application.Features.InventoryItem.Update;
 
 public class UpdateInventoryHandler(IInventoryRepository inventoryRepository)
-    : IRequestHandler<UpdateInventoryCommand, Guid>
+    : IRequestHandler<UpdateInventoryCommand, string>
 {
     /// <summary>
     /// Find inventory item, change quantity, create stock movement
     /// </summary>
-    public async Task<Guid> Handle(UpdateInventoryCommand command, CancellationToken ct)
+    public async Task<string> Handle(UpdateInventoryCommand command, CancellationToken ct)
     {
         var item = await inventoryRepository.GetByVariantWarehouseAsync(command.VariantId, command.WarehouseId, ct);
         if (item == null)
