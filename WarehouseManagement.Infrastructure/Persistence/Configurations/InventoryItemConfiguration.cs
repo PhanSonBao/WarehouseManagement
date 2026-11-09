@@ -15,10 +15,15 @@ public class InventoryItemConfiguration : IEntityTypeConfiguration<InventoryItem
 
         // Primary key
         builder.HasKey(i => i.Id);
+        builder.Property(i => i.PublicId)
+            .IsRequired();
 
+        builder.Property(i => i.ProductVariantId)
+            .IsRequired();
+        
         // 1 unique stock row for 1 (variant, warehouse)
         builder.HasIndex(i => new 
-            { i.VariantId, i.WarehouseId }) // Composite Index
+            { i.ProductVariantId, i.WarehouseId }) // Composite Index
             .IsUnique();
 
         // Concurrency: Prevent 2 request modified data simultaneously

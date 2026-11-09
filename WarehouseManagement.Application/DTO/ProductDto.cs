@@ -4,8 +4,8 @@ public record ProductDto(
     string PublicId,
     string Name,
     string? Description,
+    string BrandId,
     int CategoryId,
-    int BrandId,
     bool IsActive,
     List<ProductVariantDto> Variants
 );

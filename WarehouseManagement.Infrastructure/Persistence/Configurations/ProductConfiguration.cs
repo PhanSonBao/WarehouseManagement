@@ -24,6 +24,11 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.PublicId)
             .ValueGeneratedNever()
             .IsRequired();
+        
+        // BrandId
+        builder.Property(p => p.BrandId)
+            .HasMaxLength(50);
+        
 
         // Name
         builder.Property(p => p.Name)
@@ -35,12 +40,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithMany(c => c.Products)
             .HasForeignKey(p => p.CategoryId)
             .OnDelete(DeleteBehavior.Restrict); // Avoid deleting product when deleting category
-        
-        // 1 Brand - Many Products
-        builder.HasOne(p => p.Brands)
-            .WithMany(b => b.Products)
-            .HasForeignKey(b => b.BrandId)
-            .OnDelete(DeleteBehavior.Restrict);
         
         // 1 Product - Many Variants
         builder.HasMany(p => p.Variants)

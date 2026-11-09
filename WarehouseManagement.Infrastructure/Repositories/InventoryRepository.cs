@@ -7,10 +7,10 @@ namespace WarehouseManagement.Infrastructure.Repositories;
 
 public class InventoryRepository(AppDbContext dbContext) : IInventoryRepository
 {
-    public async Task<InventoryItem?> GetByVariantWarehouseAsync(int variantId, int warehouseId, CancellationToken ct = default)
+    public async Task<InventoryItem?> GetByVariantWarehouseAsync(int variantId, string warehouseId, CancellationToken ct = default)
     {
         return await dbContext.InventoryItems
-            .Where(i => i.VariantId == variantId && i.WarehouseId == warehouseId)
+            .Where(i => i.ProductVariantId == variantId && i.WarehouseId == warehouseId)
             .FirstOrDefaultAsync(ct);
     }
     

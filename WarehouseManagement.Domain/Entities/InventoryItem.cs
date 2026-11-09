@@ -7,8 +7,8 @@ public class InventoryItem
     #region Properties
     public int Id { get; private set; }
     public string PublicId { get; private set; }
-    public int VariantId { get; private set; }
-    public int WarehouseId { get; private set; }
+    public int ProductVariantId { get; private set; }
+    public string WarehouseId { get; private set; }
     public int Quantity { get; private set; }
     public int LowStockThreshold { get; private set; } // Ngưỡng cảnh báo tồn kho thấp
     public byte[] RowVersion { get; private set; } // Concurrency token
@@ -26,7 +26,7 @@ public class InventoryItem
     /// <summary>
     /// Create new Item
     /// </summary>
-    public static InventoryItem Create(int variantId, int warehouseId, int lowStockThreshold)
+    public static InventoryItem Create(int productVariantId, string warehouseId, int lowStockThreshold)
     {
         // Validate 
         if (lowStockThreshold < 0)
@@ -38,8 +38,8 @@ public class InventoryItem
         return new InventoryItem
         {
             PublicId = Guid.NewGuid().ToString(),
-            VariantId =  variantId,
-            WarehouseId =   warehouseId,
+            ProductVariantId = productVariantId,
+            WarehouseId =  warehouseId,
             LowStockThreshold =  lowStockThreshold,
             Quantity = 0
         };

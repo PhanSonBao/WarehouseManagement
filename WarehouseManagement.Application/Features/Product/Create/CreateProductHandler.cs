@@ -22,6 +22,8 @@ public class CreateProductHandler(IProductRepository productRepository) : IReque
         {
             var variant = Domain.Entities.ProductVariant.CreateVariant(
                 item.Name,
+                item.ProductId,
+                item.UnitId,
                 item.CostPrice,
                 item.SalePrice,
                 item.Barcode,

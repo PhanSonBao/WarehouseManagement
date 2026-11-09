@@ -5,8 +5,7 @@ namespace WarehouseManagement.Domain.Entities;
 public class Brand
 {
     #region Properties
-    public int Id { get; private set; }
-    public string PublicId { get; private set; }
+    public string BrandId { get; private set; }
     public string Name { get; private set; }
     #endregion
 
@@ -27,7 +26,7 @@ public class Brand
         
         return new Brand
         {
-            PublicId = Guid.NewGuid().ToString(),
+            BrandId = Guid.NewGuid().ToString(),
             Name = name
         };
     }

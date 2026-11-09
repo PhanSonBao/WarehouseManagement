@@ -5,7 +5,7 @@ namespace WarehouseManagement.Application.Features.InventoryItem.Update;
 public record UpdateInventoryCommand(
     string Name,
     int VariantId,
-    int WarehouseId,
+    string WarehouseId,
     int Quantity,
     int OrderNo,
     string Note,

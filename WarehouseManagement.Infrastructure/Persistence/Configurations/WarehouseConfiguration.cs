@@ -14,6 +14,7 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         // Primary key
         builder.HasKey(x => x.WarehouseId);
         builder.Property(x => x.WarehouseId)
+            .HasMaxLength(50)
             .IsRequired();
         
         builder.Property(x => x.Name)

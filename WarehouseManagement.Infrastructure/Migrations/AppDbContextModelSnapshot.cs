@@ -24,21 +24,14 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Brand", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("BrandId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("BrandId");
 
                     b.ToTable("Brands");
                 });
@@ -98,17 +91,15 @@ namespace WarehouseManagement.Infrastructure.Migrations
                     b.Property<int>("VariantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WarehouseId1")
+                    b.Property<string>("WarehouseId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductVariantId");
 
-                    b.HasIndex("WarehouseId1");
+                    b.HasIndex("WarehouseId");
 
                     b.HasIndex("VariantId", "WarehouseId")
                         .IsUnique();
@@ -147,8 +138,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
+                    b.Property<string>("BrandId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -261,8 +253,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
+                    b.Property<string>("WarehouseId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -282,6 +275,10 @@ namespace WarehouseManagement.Infrastructure.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BrandId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -299,7 +296,7 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
                     b.HasKey("WarehouseId");
 
-                    b.HasIndex("BrandId");
+                    b.HasIndex("BrandId1");
 
                     b.ToTable("Warehouse", (string)null);
                 });
@@ -314,7 +311,9 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
                     b.HasOne("WarehouseManagement.Domain.Entities.Warehouse", "Warehouse")
                         .WithMany()
-                        .HasForeignKey("WarehouseId1");
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ProductVariant");
 
@@ -334,10 +333,10 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("WarehouseManagement.Domain.Entities.Brand", "Brands")
+                    b.HasOne("WarehouseManagement.Domain.Entities.Brand", null)
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WarehouseManagement.Domain.Entities.Category", "Category")
@@ -345,8 +344,6 @@ namespace WarehouseManagement.Infrastructure.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Brands");
 
                     b.Navigation("Category");
                 });
@@ -366,7 +363,7 @@ namespace WarehouseManagement.Infrastructure.Migrations
                 {
                     b.HasOne("WarehouseManagement.Domain.Entities.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandId")
+                        .HasForeignKey("BrandId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -10,26 +10,24 @@ public class Product
     public string PublicId { get; private set; }
     public string Name { get; private set; }
     public string? Description { get; private set; }
+    public string BrandId { get; private set; }
     public int CategoryId { get; private set; }
-    public int BrandId { get; private set; }
     public bool IsActive { get; private set; }
     #endregion
 
     #region Foreign Keys
 
     public Category Category { get; private set; } = null!;
-    public Brand? Brands { get; private set; }
     public ICollection<ProductVariant> Variants { get; private set; } = new List<ProductVariant>();
     #endregion
 
     // Private Constructor
-    private Product(string name)
+    private Product()
     {
-        Name = name;
     }
 
     // Factory Method
-    public static Product CreateProduct(string name, string? description, int categoryId, int brandId, bool isActive)
+    public static Product CreateProduct(string name, string? description, int categoryId, string brandId, bool isActive)
     {
         // Validate Input
         if (name == null)
@@ -37,7 +35,7 @@ public class Product
             throw new DomainException("Name cannot be null");
         }
 
-        return new Product(name)
+        return new Product
         {
             PublicId = Guid.NewGuid().ToString(),
             Name = name,

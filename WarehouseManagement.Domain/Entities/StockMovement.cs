@@ -9,7 +9,7 @@ public class StockMovement
     public int Id { get; private set; }
     public string PublicId { get; private set; }
     public int ProductVariantId { get; private set; }
-    public int WarehouseId { get; private set; }
+    public string WarehouseId { get; private set; }
     public string Name { get; private set; }
     public int Quantity { get; private set; }
 
@@ -30,7 +30,7 @@ public class StockMovement
     }
 
     // Factory method
-    public static StockMovement Create(int productVariantId, int warehouseId, string name, int quantity,
+    public static StockMovement Create(int productVariantId, string warehouseId, string name, int quantity,
         MovementType movementType, int orderNo, string? note)
     {
         return new StockMovement

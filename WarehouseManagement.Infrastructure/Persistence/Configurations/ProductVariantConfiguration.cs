@@ -22,5 +22,9 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
         builder.Property(p => p.Barcode)
             .HasMaxLength(100);
         builder.HasIndex(p => p.Barcode); // Quick lookup when scanning
+        
+        // FK
+        // builder.HasOne(v => v.Product)
+        //     .WithOne(v => v.ProductVariant)
     }
 }
