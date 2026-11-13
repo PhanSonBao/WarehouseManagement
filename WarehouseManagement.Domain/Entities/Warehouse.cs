@@ -7,8 +7,7 @@ public class Warehouse
     #region Properties
 
     public string WarehouseId { get; private set; }
-    public int LocationId { get; private set; }
-    public int BrandId { get; private set; }
+    public string LocationId { get; private set; }
     public string Name { get; private set; }
     public string Address { get; private set; }
     public string Description { get; private set; }
@@ -17,8 +16,9 @@ public class Warehouse
     #endregion
 
     #region Foreign key
-
-    public Brand Brand { get; private set; }
+    
+    public Location Location { get; private set; }
+    public ICollection<InventoryItem> InventoryItem { get; private set; } = new List<InventoryItem>();
 
     #endregion
 

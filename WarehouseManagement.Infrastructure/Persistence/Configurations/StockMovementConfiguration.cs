@@ -15,20 +15,23 @@ public class StockMovementConfiguration : IEntityTypeConfiguration<StockMovement
         builder.HasKey(i => i.Id);
         builder.Property(i => i.Id)
             .UseIdentityColumn();
-
+        
         builder.Property(i => i.Name)
             .HasMaxLength(250)
             .IsRequired();
 
-        builder.Property(i => i.Quantity);
-        
-        builder.Property(i => i.ProductVariantId)
-            .IsRequired();
-        
-        builder.Property(i => i.WarehouseId)
-            .IsRequired();
+        builder.Property(i => i.Quantity)
+            .IsRequired()
+            .HasDefaultValue(0);
         
         builder.Property(i => i.MovementType)
             .IsRequired();
+
+        builder.Property(i => i.OrderNo);
+        
+        builder.Property(i => i.CreateAt);
+        
+        builder.Property(i => i.Note)
+            .HasMaxLength(500);
     }
 }

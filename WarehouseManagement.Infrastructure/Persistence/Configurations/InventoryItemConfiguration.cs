@@ -16,10 +16,14 @@ public class InventoryItemConfiguration : IEntityTypeConfiguration<InventoryItem
         // Primary key
         builder.HasKey(i => i.Id);
         builder.Property(i => i.PublicId)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
 
         builder.Property(i => i.ProductVariantId)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
         
         // 1 unique stock row for 1 (variant, warehouse)
         builder.HasIndex(i => new 

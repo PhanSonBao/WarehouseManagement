@@ -31,7 +31,7 @@ public class UpdateInventoryHandler(IInventoryRepository inventoryRepository)
                 throw new Exception("Quantity cannot be zero!");
         }
 
-        var stockMovement = Domain.Entities.StockMovement.Create(command.VariantId, command.WarehouseId, command.Name,
+        var stockMovement = Domain.Entities.StockMovement.Create(command.VariantId, command.Name,
             command.Quantity, command.MovementType, command.OrderNo, command.Note);
         await inventoryRepository.AddMovementAsync(stockMovement, ct);
 

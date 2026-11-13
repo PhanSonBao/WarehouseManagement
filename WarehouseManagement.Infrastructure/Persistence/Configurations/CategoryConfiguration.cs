@@ -22,7 +22,9 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .IsUnique();
         builder.Property(c => c.PublicId)
             .ValueGeneratedNever()
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
         
         // Name
         builder.Property(c => c.Name)

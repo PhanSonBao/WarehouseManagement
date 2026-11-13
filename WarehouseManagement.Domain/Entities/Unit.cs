@@ -8,6 +8,12 @@ public class Unit
     public string UnitId { get; private set; }
     public string Name { get; private set; }
     #endregion
+
+    #region Foreign Key
+
+    public ICollection<ProductVariant> Variants { get; private set; } = new List<ProductVariant>();
+
+    #endregion
     
     // Constructor
     private Unit() {}
@@ -29,5 +35,11 @@ public class Unit
     public void Update(string name)
     {
         Name = name;
+    }
+    
+    // Unit
+    public void AddVariants(ProductVariant variant)
+    {
+        Variants.Add(variant);
     }
 }

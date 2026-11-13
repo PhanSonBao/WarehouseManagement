@@ -3,7 +3,6 @@ using WarehouseManagement.Domain.Entities;
 
 namespace WarehouseManagement.Domain.Entities;
 
-// Size, color
 public class ProductVariant
 {
     #region Properties

@@ -14,17 +14,26 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
         // SKU
         builder.Property(p => p.Sku)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(50)
+            .IsUnicode(false);
         builder.HasIndex(p => p.Sku)
             .IsUnique(); // Unique Index
 
         // Barcode
         builder.Property(p => p.Barcode)
-            .HasMaxLength(100);
+            .HasMaxLength(100)
+            .IsUnicode(false);
         builder.HasIndex(p => p.Barcode); // Quick lookup when scanning
-        
+
         // FK
-        // builder.HasOne(v => v.Product)
-        //     .WithOne(v => v.ProductVariant)
+        builder.HasOne(v => v.Product)
+            .WithMany(v => v.Variants)
+            .HasForeignKey(v => v.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasOne(v => v.Unit)
+            .WithMany(v => v.Variants)
+            .HasForeignKey(v => v.UnitId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

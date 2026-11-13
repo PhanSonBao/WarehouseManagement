@@ -15,10 +15,13 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
         builder.HasKey(l => l.LocationId);
         builder.Property(l => l.LocationId)
             .HasMaxLength(50)
-            .IsRequired();
+            .IsRequired()
+            .IsUnicode(false);
 
         builder.Property(l => l.WarehouseId)
-            .HasMaxLength(50);
+            .HasMaxLength(50)
+            .IsRequired()
+            .IsUnicode(false);
         
         builder.Property(l => l.Name)
             .HasMaxLength(250)

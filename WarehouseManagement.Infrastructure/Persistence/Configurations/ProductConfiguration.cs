@@ -23,12 +23,14 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsUnique();
         builder.Property(p => p.PublicId)
             .ValueGeneratedNever()
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
         
         // BrandId
         builder.Property(p => p.BrandId)
-            .HasMaxLength(50);
-        
+            .HasMaxLength(50)
+            .IsUnicode(false);
 
         // Name
         builder.Property(p => p.Name)

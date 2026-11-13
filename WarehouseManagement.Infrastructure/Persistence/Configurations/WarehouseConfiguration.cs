@@ -15,10 +15,11 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.HasKey(x => x.WarehouseId);
         builder.Property(x => x.WarehouseId)
             .HasMaxLength(50)
-            .IsRequired();
+            .IsRequired()
+            .IsUnicode(false);
         
         builder.Property(x => x.Name)
-            .HasMaxLength(200)
+            .HasMaxLength(250)
             .IsRequired();
 
         builder.Property(x => x.Address)
