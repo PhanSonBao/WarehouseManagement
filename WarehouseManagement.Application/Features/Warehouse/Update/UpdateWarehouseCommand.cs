@@ -7,4 +7,5 @@ public record UpdateWarehouseCommand(
     string WarehouseId,
     string Name,
     string Address,
-    bool IsActive) : ICommand<Unit>;
+    bool IsActive,
+    DateTime? UpdatedAt) : ICommand<Unit>;

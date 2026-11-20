@@ -17,6 +17,13 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
             .HasMaxLength(50)
             .IsRequired()
             .IsUnicode(false);
+
+        builder.Property(x => x.Code)
+            .HasMaxLength(50)
+            .IsRequired()
+            .IsUnicode(false);
+        builder.HasIndex(x => x.Code)
+            .IsUnique();
         
         builder.Property(x => x.Name)
             .HasMaxLength(250)
@@ -25,9 +32,16 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.Property(x => x.Address)
             .HasMaxLength(500);
         
-        builder.HasMany(x => x.Locations)
-            .WithOne(x => x.Warehouse)
-            .HasForeignKey(x => x.WarehouseId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(x => x.Description)
+            .HasMaxLength(500);
+        
+        builder.Property(x => x.IsActive)
+            .HasDefaultValue(true);
+
+        builder.Property(x => x.CreatedAt)
+            .HasDefaultValue(DateTime.UtcNow)
+            .IsRequired();
+
+        builder.Property(x => x.UpdatedAt);
     }
 }

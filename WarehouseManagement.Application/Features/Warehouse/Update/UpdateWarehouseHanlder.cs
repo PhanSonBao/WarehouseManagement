@@ -15,7 +15,7 @@ public class UpdateWarehouseHanlder(IWarehouseRepository warehouseRepository)
             throw new NotFoundException("Warehouse", command.Name);
         }
         
-        warehouse.Update(command.Name, command.Address, command.IsActive);
+        warehouse.Update(command.Name, command.Address, command.IsActive, command.UpdatedAt);
         
         return Unit.Value;
     }

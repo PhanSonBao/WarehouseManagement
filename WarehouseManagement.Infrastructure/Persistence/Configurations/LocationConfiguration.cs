@@ -18,7 +18,12 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .IsRequired()
             .IsUnicode(false);
 
-        builder.Property(l => l.WarehouseId)
+        builder.Property(l => l.ZoneId)
+            .HasMaxLength(50)
+            .IsRequired()
+            .IsUnicode(false);
+        
+        builder.Property(l => l.Code)
             .HasMaxLength(50)
             .IsRequired()
             .IsUnicode(false);
@@ -27,6 +32,29 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .HasMaxLength(250)
             .IsRequired();
 
-        builder.Property(l => l.IsActive);
+        builder.Property(l => l.LocationType)
+            .HasMaxLength(50)
+            .IsRequired();
+        
+        builder.Property(l => l.MaxWeight)
+            .HasPrecision(18, 3);
+
+        builder.Property(l => l.MaxVolume)
+            .HasPrecision(18, 3);
+
+        builder.Property(l => l.IsBlocked)
+            .HasDefaultValue(false);
+
+        builder.Property(l => l.IsActive)
+            .HasDefaultValue(true);
+        
+        builder.Property(l => l.CreatedAt)
+            .HasDefaultValue(DateTime.UtcNow);
+        
+        // FK
+        builder.HasOne(l => l.Zone)
+            .WithMany(l => l.Locations)
+            .HasForeignKey(l => l.ZoneId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

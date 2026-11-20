@@ -33,7 +33,7 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
                     b.HasKey("BrandId");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Category", b =>
@@ -127,7 +127,7 @@ namespace WarehouseManagement.Infrastructure.Migrations
 
                     b.HasIndex("WarehouseId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Location", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseManagement.Domain.Entities.Product", b =>

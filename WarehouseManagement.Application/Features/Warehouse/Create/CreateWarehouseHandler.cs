@@ -8,7 +8,7 @@ public class CreateWarehouseHandler(IWarehouseRepository warehouseRepository)
 {
     public async Task<string> Handle(CreateWarehouseCommand command, CancellationToken ct)
     {
-        var warehouse = Domain.Entities.Warehouse.Create(command.Name);
+        var warehouse = Domain.Entities.Warehouse.Create(command.Code, command.Name, command.Address, command.Description);
         await warehouseRepository.AddAsync(warehouse, ct);
 
         return warehouse.WarehouseId;

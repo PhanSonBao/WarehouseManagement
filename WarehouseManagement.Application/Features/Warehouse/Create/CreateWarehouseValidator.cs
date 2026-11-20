@@ -6,8 +6,12 @@ public class CreateWarehouseValidator : AbstractValidator<CreateWarehouseCommand
 {
     public CreateWarehouseValidator()
     {
+        RuleFor(w => w.Code)
+            .MaximumLength(50)
+            .NotEmpty();
+            
         RuleFor(w => w.Name)
-            .MaximumLength(200)
+            .MaximumLength(250)
             .NotEmpty();
 
         RuleFor(w => w.Address)

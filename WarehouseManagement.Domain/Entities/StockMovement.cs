@@ -37,7 +37,7 @@ public class StockMovement
             Quantity = quantity,
             MovementType = movementType,
             OrderNo = orderNo,
-            CreateAt = DateTime.Now,
+            CreateAt = DateTime.UtcNow,
             Note = note,
         };
     }
